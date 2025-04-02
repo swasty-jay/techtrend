@@ -1,21 +1,14 @@
-import { useDispatch } from "react-redux";
-import { addToCart } from "../Store/cartSlice";
 import NavBar from "../Components/NavBar";
 import CategoryCard from "../Components/CategoryCard";
 import HeroSection from "../UI/HeroSection";
 import ProductCard from "../Components/ProductCard";
 import Footer from "../Components/Footer";
 import SearchBar from "../Features/Search/SearchBar";
+import AppleProducts from "../Components/AppleProducts";
 
 const Homepage = () => {
-  const dispatch = useDispatch();
-
-  const handleAddToCart = (product) => {
-    dispatch(addToCart({ ...product, id: Date.now() })); // Unique ID using timestamp
-  };
-
   return (
-    <div className="w-full min-h-screen bg-gray-600 text-gray-900 font-sans">
+    <div className="w-full min-h-screen bg-gray-200 text-gray-900 font-sans">
       <NavBar />
       {/* Hero Section */}
       <HeroSection />
@@ -47,37 +40,7 @@ const Homepage = () => {
       </section>
 
       {/* Featured Products */}
-      <section className="max-w-7xl mx-auto mt-16 px-4 pb-20">
-        <h2 className="text-3xl font-bold text-center mb-8">
-          Featured Products
-        </h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
-          <ProductCard
-            name="iPhone 14 Pro Case"
-            price="$20"
-            image="https://via.placeholder.com/200"
-            onAddToCart={handleAddToCart}
-          />
-          <ProductCard
-            name="Samsung 65W Charger"
-            price="$35"
-            image="https://via.placeholder.com/200"
-            onAddToCart={handleAddToCart}
-          />
-          <ProductCard
-            name="AirPods Pro"
-            price="$199"
-            image="https://via.placeholder.com/200"
-            onAddToCart={handleAddToCart}
-          />
-          <ProductCard
-            name="PS5 Controller"
-            price="$70"
-            image="https://via.placeholder.com/200"
-            onAddToCart={handleAddToCart}
-          />
-        </div>
-      </section>
+      <AppleProducts />
 
       {/* Footer */}
       <Footer />
