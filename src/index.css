@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* COLOR PALLET */
+
+:root {
+  --primary-black: #24252a;
+  --purple-lavender: #d7cffe;
+  --vanilla: #fdecca;
+  --azure-blue: #d3e7e8;
+  --pure-white: #ffffff;
+  --dark-gray: #3a3b3c;
+  --soft-pink: #f8c8dc;
+  --muted-green: #a8d5ba;
+  --warm-orange: #ffb573;
+  --deep-navy: #1e2a3a;
+}
