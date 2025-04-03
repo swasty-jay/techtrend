@@ -24,7 +24,7 @@ export function HeroImageBackground() {
       description: "Level up with controllers, headsets, and more",
       buttonText: "Shop Gaming",
       image:
-        "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/bg-images//Cool_iPhone_Accessories_1.png",
+        "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/apple-products//ps5-slim-edition.webp",
     },
   ];
 
@@ -40,26 +40,29 @@ export function HeroImageBackground() {
       {slides.map((slide, index) => (
         <div
           key={index}
-          className={`absolute inset-0 bg-cover bg-center flex items-center justify-center text-center transition-opacity duration-1000 ${
+          className={`absolute inset-0 bg-contain bg-no-repeat bg-center  flex items-center justify-center text-center transition-opacity duration-1000 ${
             currentSlide === index ? "opacity-100" : "opacity-0"
           }`}
           style={{ backgroundImage: `url(${slide.image})` }}
         >
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className="relative z-10 text-center px-4">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: -50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1 }}
-              className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 text-4xl font-extrabold tracking-tight sm:text-2xl"
             >
-              {slide.title}
-            </motion.h1>
-            <p className="mt-4 text-gray-300 text-lg max-w-xl mx-auto text-center sm:text-left">
-              {slide.description}
-            </p>
+              <h1 className="text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-300 text-xl md:text-5xl font-extrabold tracking-tight sm:text-2xl">
+                {slide.title}
+              </h1>
+
+              <p className="mt-4 text-gray-300 text-lg max-w-xl mx-auto text-center sm:text-left">
+                {slide.description}
+              </p>
+            </motion.div>
+
             <div className="mt-8 flex justify-center">
-              <button className="h-10 px-6 text-md bg-[var(--azure-blue)] text-white font-semibold rounded-md shadow-md hover:bg-blue-700">
+              <button className="h-10 px-6 text-md bg-gray-900  text-white font-semibold rounded-md shadow-md hover:bg-gray-950">
                 {slide.buttonText}
               </button>
             </div>

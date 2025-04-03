@@ -42,9 +42,10 @@ function AppleProducts() {
           products.map((product) => (
             <ProductCard
               key={product.id}
+              oldPrice={product.oldPrice}
               name={product.name}
-              description={product.description}
-              brand={product.brand}
+              discount={product.discount}
+              rating={product.rating}
               price={`GHS${Number(product.price)}`}
               image={product.image_url}
               onAddToCart={handleAddToCart}

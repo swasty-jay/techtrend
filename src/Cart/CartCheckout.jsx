@@ -8,18 +8,10 @@ function CartCheckout({ onClose }) {
 
   // Calculate total price
   // const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
-  // const totalPrice = cartItems.reduce(
-  //   (sum, item) => sum + (Number(item.price) || 0) * item.quantity,
-  //   0
-  // );
-
-  const totalPrice = cartItems.reduce((sum, item) => {
-    console.log(
-      `Item: ${item.name}, Price: ${item.price}, Quantity: ${item.quantity}`
-    );
-    return sum + (Number(item.price) || 0) * item.quantity;
-  }, 0);
-  console.log(totalPrice);
+  const totalPrice = cartItems.reduce(
+    (sum, item) => sum + (Number(item.price) || 0) * item.quantity,
+    0
+  );
 
   return (
     <motion.div

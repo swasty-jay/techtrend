@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FaShoppingCart, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import CartCheckout from "../Cart/CartCheckOut";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -26,30 +27,30 @@ const NavBar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
-          <a
-            href="#"
+          <Link
+            to={"/"}
             className="text-gray-700 hover:text-blue-600 transition duration-200"
           >
             Home
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to={"/shop"}
             className="text-gray-700 hover:text-blue-600 transition duration-200"
           >
             Shop
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to={"/categories"}
             className="text-gray-700 hover:text-blue-600 transition duration-200"
           >
             Categories
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to={"/contact"}
             className="text-gray-700 hover:text-blue-600 transition duration-200"
           >
             Contact
-          </a>
+          </Link>
 
           {/* User Profile Icon */}
           <div className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl flex items-center">
@@ -59,10 +60,12 @@ const NavBar = () => {
 
           {/* Cart Icon */}
           <div
-            className="relative cursor-pointer"
+            className="relative cursor-pointer items-center"
             onClick={() => setShowCart(true)}
           >
-            <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-xl" />
+            <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-2xl " />
+            {/* <span className="pl-2 text-sm">Cart</span> */}
+
             {totalCartItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {totalCartItems}
@@ -90,34 +93,34 @@ const NavBar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg px-4 py-6 absolute w-full top-16 left-0 z-10">
           <div className="flex flex-col space-y-4">
-            <a
-              href="#"
+            <Link
+              to={"/"}
               className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
               Home
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to={"/shop"}
               className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
               Shop
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to={"/categories"}
               className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
               Categories
-            </a>
-            <a
-              href="#"
+            </Link>
+            <Link
+              to={"/contact"}
               className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
               Contact
-            </a>
+            </Link>
 
             {/* Mobile Icons */}
             <div className="flex justify-between items-center border-t pt-4">
