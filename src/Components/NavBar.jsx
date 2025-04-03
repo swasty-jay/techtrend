@@ -27,55 +27,57 @@ const NavBar = () => {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center space-x-6">
-          <Link
-            to={"/"}
-            className="text-gray-700 hover:text-blue-600 transition duration-200"
-          >
-            Home
-          </Link>
-          <Link
-            to={"/shop"}
-            className="text-gray-700 hover:text-blue-600 transition duration-200"
-          >
-            Shop
-          </Link>
-          <Link
-            to={"/categories"}
-            className="text-gray-700 hover:text-blue-600 transition duration-200"
-          >
-            Categories
-          </Link>
-          <Link
-            to={"/contact"}
-            className="text-gray-700 hover:text-blue-600 transition duration-200"
-          >
-            Contact
-          </Link>
+          {["Home", "Shop", "Categories", "Contact"].map((item) => (
+            <Link
+              key={item}
+              to={`/${item.toLowerCase()}`}
+              className="text-gray-700 hover:text-blue-600 transition duration-200"
+            >
+              {item}
+            </Link>
+          ))}
 
-          {/* User Profile Icon */}
-          <div className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl flex items-center">
-            <FaUser className="pl-2 text-2xl" />
-            <span className="pl-2 text-sm">Profile</span>
-          </div>
-
-          {/* Cart Icon */}
           <div
-            className="relative cursor-pointer items-center"
+            className="relative cursor-pointer"
             onClick={() => setShowCart(true)}
           >
-            <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-2xl " />
-            {/* <span className="pl-2 text-sm">Cart</span> */}
-
+            <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-2xl" />
             {totalCartItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {totalCartItems}
               </span>
             )}
           </div>
+
+          {/* User Profile Icon */}
+
+          <Link
+            to="/profile"
+            className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl flex items-center"
+          >
+            <FaUser className="pl-2 text-2xl" />
+          </Link>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center">
+        {/* Mobile Icons and Menu Button */}
+        <div className="md:hidden flex items-center space-x-8">
+          <Link
+            to="/profile"
+            className="text-gray-700 hover:text-blue-600 text-xl"
+          >
+            <FaUser />
+          </Link>
+          <div
+            className="relative cursor-pointer"
+            onClick={() => setShowCart(true)}
+          >
+            <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-xl" />
+            {totalCartItems > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {totalCartItems}
+              </span>
+            )}
+          </div>
           <button
             onClick={toggleMobileMenu}
             className="text-gray-700 focus:outline-none"
@@ -93,50 +95,16 @@ const NavBar = () => {
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white shadow-lg px-4 py-6 absolute w-full top-16 left-0 z-10">
           <div className="flex flex-col space-y-4">
-            <Link
-              to={"/"}
-              className="text-gray-700 hover:text-blue-600"
-              onClick={toggleMobileMenu}
-            >
-              Home
-            </Link>
-            <Link
-              to={"/shop"}
-              className="text-gray-700 hover:text-blue-600"
-              onClick={toggleMobileMenu}
-            >
-              Shop
-            </Link>
-            <Link
-              to={"/categories"}
-              className="text-gray-700 hover:text-blue-600"
-              onClick={toggleMobileMenu}
-            >
-              Categories
-            </Link>
-            <Link
-              to={"/contact"}
-              className="text-gray-700 hover:text-blue-600"
-              onClick={toggleMobileMenu}
-            >
-              Contact
-            </Link>
-
-            {/* Mobile Icons */}
-            <div className="flex justify-between items-center border-t pt-4">
-              <FaUser className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl" />
-              <div
-                className="relative cursor-pointer"
-                onClick={() => setShowCart(true)}
+            {["Home", "Shop", "Categories", "Contact"].map((item) => (
+              <Link
+                key={item}
+                to={`/${item.toLowerCase()}`}
+                className="text-gray-700 hover:text-blue-600"
+                onClick={toggleMobileMenu}
               >
-                <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-xl" />
-                {totalCartItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {totalCartItems}
-                  </span>
-                )}
-              </div>
-            </div>
+                {item}
+              </Link>
+            ))}
           </div>
         </div>
       )}

@@ -1,13 +1,14 @@
 import { motion } from "framer-motion";
-import { AiFillStar } from "react-icons/ai";
 import { FaShoppingCart } from "react-icons/fa";
+import Rating from "../UI/Rating";
+import Button from "../UI/Button";
 
 function ProductCard({
   name,
   price,
   oldPrice,
   discount,
-  rating,
+  // rating,
   image,
   onAddToCart,
 }) {
@@ -42,23 +43,24 @@ function ProductCard({
 
         {/* Star Rating */}
         <div className="flex items-center justify-center space-x-1">
-          {Array.from({ length: 5 }, (_, i) => (
+          {/* {Array.from({ length: 5 }, (_, i) => (
             <AiFillStar key={i} className="text-yellow-500 text-lg" />
           ))}
           <span className="bg-yellow-500 text-white text-xs font-semibold px-2 py-1 rounded-md">
             {rating}
-          </span>
+          </span> */}
+          <Rating />
         </div>
 
         {/* Add to Cart Button */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          className="mt-3 w-full bg-gray-900 text-white font-medium py-2 rounded-lg flex items-center justify-center space-x-2 hover:bg-gray-700 transition"
+
+        <Button
+          variant="primary"
           onClick={() => onAddToCart({ name, price, image })}
         >
           <FaShoppingCart />
           <span>Add to cart</span>
-        </motion.button>
+        </Button>
       </div>
     </motion.div>
   );

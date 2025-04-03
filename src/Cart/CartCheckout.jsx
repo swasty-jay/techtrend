@@ -1,17 +1,21 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../Store/cartSlice";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 function CartCheckout({ onClose }) {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   // Calculate total price
-  // const totalPrice = cartItems.reduce((total, item) => total + item.price, 0);
   const totalPrice = cartItems.reduce(
     (sum, item) => sum + (Number(item.price) || 0) * item.quantity,
     0
   );
+
+  const handleCheckout = () => {
+    navigate("/CheckoutForm"); // Navigate to checkout page
+  };
 
   return (
     <motion.div
@@ -20,7 +24,7 @@ function CartCheckout({ onClose }) {
       exit={{ opacity: 0, y: 20 }}
       className="fixed inset-0 bg-slate-50/10 backdrop-blur-sm bg-opacity-50 flex justify-center items-center"
     >
-      <div className="bg-white w-1/3 p-6 rounded-lg shadow-lg relative">
+      <div className="bg-white w-full sm:w-1/2 lg:w-1/3 p-6 rounded-lg shadow-lg relative">
         <button
           className="absolute top-2 right-2 text-gray-600 hover:text-red-600"
           onClick={onClose}
@@ -62,9 +66,12 @@ function CartCheckout({ onClose }) {
 
         <div className="mt-4 flex justify-between items-center">
           <span className="text-lg font-semibold">
-            Total: GHS{totalPrice.toFixed(2)}
+            Total: GHS {totalPrice.toFixed(2)}
           </span>
-          <button className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+          <button
+            className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-950"
+            onClick={handleCheckout} // Navigate to the checkout page
+          >
             Checkout
           </button>
         </div>
