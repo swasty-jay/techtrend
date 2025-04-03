@@ -1,3 +1,5 @@
+// cartSlice.js
+
 import { createSlice } from "@reduxjs/toolkit";
 
 const cartSlice = createSlice({
@@ -8,7 +10,8 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const item = action.payload;
-      const existingItem = state.items.find((i) => i.name === item.name);
+
+      const existingItem = state.items.find((i) => i.id === item.id);
       if (existingItem) {
         existingItem.quantity += 1; // Increment quantity if item exists
       } else {
@@ -16,13 +19,18 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
+      if (!state.items.some((item) => item.id === action.payload)) return;
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
     updateQuantity: (state, action) => {
       const { id, quantity } = action.payload;
       const item = state.items.find((i) => i.id === id);
-      if (item && quantity > 0) {
-        item.quantity = quantity;
+      if (item) {
+        if (quantity > 0) {
+          item.quantity = quantity;
+        } else {
+          state.items = state.items.filter((i) => i.id !== id);
+        }
       }
     },
   },

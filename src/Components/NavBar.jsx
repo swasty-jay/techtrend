@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { FaShoppingCart, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
-// import Link from "react-router-dom";
+import CartCheckout from "../Cart/CartCheckOut";
 
 const NavBar = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
   // Calculate total items in cart
   const totalCartItems = cartItems.reduce(
@@ -49,19 +50,19 @@ const NavBar = () => {
           >
             Contact
           </a>
-          {/* Search Icon */}
-          {/* <FaSearch className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl" /> */}
+
           {/* User Profile Icon */}
           <div className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl flex items-center">
             <FaUser className="pl-2 text-2xl" />
             <span className="pl-2 text-sm">Profile</span>
           </div>
+
           {/* Cart Icon */}
-          <div className="relative">
-            <span className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl flex items-center">
-              <FaShoppingCart />
-              <span className="pl-2 text-sm">Cart</span>
-            </span>
+          <div
+            className="relative cursor-pointer"
+            onClick={() => setShowCart(true)}
+          >
+            <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-xl" />
             {totalCartItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {totalCartItems}
@@ -91,38 +92,41 @@ const NavBar = () => {
           <div className="flex flex-col space-y-4">
             <a
               href="#"
-              className="text-gray-700 hover:text-blue-600 flex items-center space-x-2"
+              className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
-              <span>Home</span>
+              Home
             </a>
             <a
               href="#"
-              className="text-gray-700 hover:text-blue-600 flex items-center space-x-2"
+              className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
-              <span>Shop</span>
+              Shop
             </a>
             <a
               href="#"
-              className="text-gray-700 hover:text-blue-600 flex items-center space-x-2"
+              className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
-              <span>Categories</span>
+              Categories
             </a>
             <a
               href="#"
-              className="text-gray-700 hover:text-blue-600 flex items-center space-x-2"
+              className="text-gray-700 hover:text-blue-600"
               onClick={toggleMobileMenu}
             >
-              <span>Contact</span>
+              Contact
             </a>
+
             {/* Mobile Icons */}
             <div className="flex justify-between items-center border-t pt-4">
-              {/* <FaSearch className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl" /> */}
               <FaUser className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl" />
-              <div className="relative">
-                <FaShoppingCart className="text-gray-700 hover:text-blue-600 cursor-pointer text-xl" />
+              <div
+                className="relative cursor-pointer"
+                onClick={() => setShowCart(true)}
+              >
+                <FaShoppingCart className="text-gray-700 hover:text-blue-600 text-xl" />
                 {totalCartItems > 0 && (
                   <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                     {totalCartItems}
@@ -133,6 +137,9 @@ const NavBar = () => {
           </div>
         </div>
       )}
+
+      {/* Cart Checkout Modal */}
+      {showCart && <CartCheckout onClose={() => setShowCart(false)} />}
     </nav>
   );
 };

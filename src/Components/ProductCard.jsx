@@ -15,7 +15,7 @@ function ProductCard({ name, price, description, brand, image, onAddToCart }) {
         <motion.button
           whileHover={{ scale: 1.1 }}
           className="mt-3 px-4 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition duration-300"
-          onClick={() => onAddToCart({ name, price, image })}
+          onClick={() => onAddToCart({ name, price, image, description })}
         >
           Add to Cart
         </motion.button>
