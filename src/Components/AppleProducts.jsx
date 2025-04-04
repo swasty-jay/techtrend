@@ -20,7 +20,7 @@ function AppleProducts() {
     queryKey: ["appleProducts"],
     queryFn: fetchAppleProducts,
   });
-  console.log(products);
+  // console.log(products);
   if (error) {
     return (
       <p className="text-red-500 border-red-500 text-center">
@@ -30,10 +30,10 @@ function AppleProducts() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto mt-16 px-4 pb-20">
+    <section className="max-w-7xl mx-auto mt-16 px-2 pb-20">
       <h2 className="text-3xl font-bold text-center mb-8">Apple Products</h2>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4">
         {isLoading ? (
           Array(4) // Show 8 skeletons while loading
             .fill(0)

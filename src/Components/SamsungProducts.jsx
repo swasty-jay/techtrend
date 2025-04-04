@@ -20,7 +20,7 @@ function SamsungProducts() {
     queryKey: ["samsungProducts"],
     queryFn: fetchSamsungProducts,
   });
-  console.log(products);
+  // console.log(products);
 
   if (error) {
     return <p className="text-red-500 text-center"> {error.message}</p>;

@@ -4,7 +4,6 @@ import HeroSection from "../UI/HeroSection";
 // import ProductCard from "../Components/ProductCard";
 import Footer from "../Components/Footer";
 import SearchBar from "../Features/Search/SearchBar";
-import AppleProducts from "../Components/AppleProducts";
 import Tabs from "../Components/Tabs";
 
 const Homepage = () => {
@@ -16,7 +15,7 @@ const Homepage = () => {
       {/* Search Bar */}
       <SearchBar />
       {/* Categories Section */}
-      <div className="p-4">
+      <div className="p-1">
         <h2 className="text-3xl font-bold text-center mb-8">Browse Products</h2>
 
         {/* Tabs Component */}

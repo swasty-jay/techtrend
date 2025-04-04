@@ -15,11 +15,11 @@ function ProductCard({
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
-      className="bg-white rounded-2xl shadow-lg p-4 w-full max-w-xs border border-gray-200"
+      className="bg-white rounded-2xl shadow-lg p-2 w-full max-w-xs border border-gray-200"
     >
       {/* Product Image + Discount Badge */}
       <div className="relative">
-        <span className="absolute top-3 left-3 bg-black text-white text-xs font-bold px-2 py-1 rounded-lg">
+        <span className="absolute top-1 left-0.5 bg-black text-white text-[6px] md:text-xs font-bold px-2 py-1 rounded-lg">
           {discount}% OFF
         </span>
         <img
@@ -31,11 +31,13 @@ function ProductCard({
 
       {/* Product Info */}
       <div className="mt-4 space-y-2 text-center">
-        <h2 className="text-lg font-semibold text-gray-800">{name}</h2>
+        <h2 className="text-[12px] md:text-[18px] font-semibold text-gray-800">
+          {name}
+        </h2>
 
         {/* Price */}
         <div className="flex items-center justify-center space-x-2">
-          <span className="text-lg md:text-xl font-semibold text-gray-900">
+          <span className="text-[12px] md:text-xl font-semibold text-gray-900">
             {price}
           </span>
           <span className="text-gray-500 line-through">GHS{oldPrice}</span>
@@ -55,11 +57,14 @@ function ProductCard({
         {/* Add to Cart Button */}
 
         <Button
+          className="flex items-center space-x-2"
           variant="primary"
           onClick={() => onAddToCart({ name, price, image })}
         >
           <FaShoppingCart />
-          <span>Add to cart</span>
+          <span className="text-[9px] font-semibold md:text-[18px]">
+            Add to cart
+          </span>
         </Button>
       </div>
     </motion.div>
