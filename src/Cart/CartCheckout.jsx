@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromCart } from "../Store/cartSlice";
-import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
 function CartCheckout({ onClose }) {
   const cartItems = useSelector((state) => state.cart.items);

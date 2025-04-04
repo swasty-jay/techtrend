@@ -23,11 +23,6 @@ const Footer = () => {
                 Support
               </a>
             </li>
-            <li>
-              <a href="#" className="hover:text-white">
-                Returns
-              </a>
-            </li>
           </ul>
         </div>
         <div>

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAppleProducts } from "../Services/Api";
 import ProductCard from "./ProductCard";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
 import ProductSkeleton from "../UI/ProductSkeleton";
+import { fetchSonyProducts } from "../Services/Api";
 
-function AppleProducts() {
+function SonyProducts() {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
@@ -17,25 +17,22 @@ function AppleProducts() {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ["appleProducts"],
-    queryFn: fetchAppleProducts,
+    queryKey: ["samsungProducts"],
+    queryFn: fetchSonyProducts,
   });
-  console.log(products);
+  // console.log(products);
+
   if (error) {
-    return (
-      <p className="text-red-500 border-red-500 text-center">
-        Error: {error.message}
-      </p>
-    );
+    return <p className="text-red-500 text-center"> {error.message}</p>;
   }
 
   return (
     <section className="max-w-7xl mx-auto mt-16 px-4 pb-20">
-      <h2 className="text-3xl font-bold text-center mb-8">Apple Products</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">Samsung Products</h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {isLoading ? (
-          Array(4) // Show 8 skeletons while loading
+          Array(4)
             .fill(0)
             .map((_, index) => <ProductSkeleton key={index} />)
         ) : products.length > 0 ? (
@@ -61,4 +58,4 @@ function AppleProducts() {
   );
 }
 
-export default AppleProducts;
+export default SonyProducts;
