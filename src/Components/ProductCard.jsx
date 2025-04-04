@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FaShoppingCart } from "react-icons/fa";
 import Rating from "../UI/Rating";
 import Button from "../UI/Button";
+import ImageSkeleton from "../UI/ImageSkeleton";
 
 function ProductCard({
   name,
@@ -19,14 +20,17 @@ function ProductCard({
     >
       {/* Product Image + Discount Badge */}
       <div className="relative">
-        <span className="absolute top-1 left-0.5 bg-black text-white text-[6px] md:text-xs font-bold px-2 py-1 rounded-lg">
-          {discount}% OFF
-        </span>
-        <img
+        {/* <img
           src={image}
           alt={name}
           className="w-full h-auto max-h-48 object-contain rounded-lg"
-        />
+        /> */}
+
+        <ImageSkeleton src={image} alt={name} className="w-full h-auto" />
+
+        <span className="absolute top-1 left-0.5 bg-black text-white text-[6px] md:text-xs font-bold px-2 py-1 rounded-lg">
+          {discount}% OFF
+        </span>
       </div>
 
       {/* Product Info */}

@@ -39,7 +39,7 @@ const Tabs = () => {
             onClick={() => setActiveTab(tab.name)}
           >
             <img src={tab.logo} alt={tab.name} className="h-6 w-6" />
-            <span>{tab.name}</span>
+            <span className="text-xs">{tab.name}</span>
           </button>
         ))}
       </div>
