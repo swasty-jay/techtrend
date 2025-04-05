@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import toast, { Toaster } from "react-hot-toast";
 import Lottie from "lottie-react";
-import Animation from "../assets/animation.json";
+import Animation from "../assets/Animation.json";
 import { useEffect, useRef } from "react";
 
 function CheckOut({ onClose }) {
