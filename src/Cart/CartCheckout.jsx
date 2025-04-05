@@ -7,7 +7,7 @@ import Lottie from "lottie-react";
 import Animation from "../assets/animation.json";
 import { useEffect, useRef } from "react";
 
-function CartCheckout({ onClose }) {
+function CartCheckOut({ onClose }) {
   const modalRef = useRef();
 
   // Handle click outside to close
@@ -252,4 +252,4 @@ function CartCheckout({ onClose }) {
   );
 }
 
-export default CartCheckout;
+export default CartCheckOut;

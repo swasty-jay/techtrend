@@ -7,7 +7,6 @@ import ProductSkeleton from "../UI/ProductSkeleton";
 
 function AppleProducts() {
   const dispatch = useDispatch();
-
   const handleAddToCart = (product) => {
     dispatch(addToCart({ ...product, id: Date.now() })); // Unique ID using timestamp
   };

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { FaShoppingCart, FaUser, FaBars, FaTimes } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import CartCheckout from "../Cart/CartCheckOut";
+// import CartCheckout from "../Cart/CartCheckOut";
 import { Link } from "react-router-dom";
+// import CartCheckout from "./../Cart/CartCheckOut";
+import CartCheckOut from "../Cart/CartCheckOut";
 
 const NavBar = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -110,7 +112,7 @@ const NavBar = () => {
       )}
 
       {/* Cart Checkout Modal */}
-      {showCart && <CartCheckout onClose={() => setShowCart(false)} />}
+      {showCart && <CartCheckOut onClose={() => setShowCart(false)} />}
     </nav>
   );
 };
