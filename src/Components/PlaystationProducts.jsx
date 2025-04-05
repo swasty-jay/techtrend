@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
 import ProductSkeleton from "../UI/ProductSkeleton";
 import { fetchPlaystationProducts } from "../Services/Api";
-function SonyProducts() {
+function PlaystationProducts() {
   const dispatch = useDispatch();
 
   const handleAddToCart = (product) => {
@@ -47,6 +47,8 @@ function SonyProducts() {
               price={`GHS${Number(product.price)}`}
               image={product.image_url}
               onAddToCart={handleAddToCart}
+              quantity={product.quantity}
+              maxQuantity={20}
             />
           ))
         ) : (
@@ -59,4 +61,4 @@ function SonyProducts() {
   );
 }
 
-export default SonyProducts;
+export default PlaystationProducts;

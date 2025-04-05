@@ -46,6 +46,8 @@ function SamsungProducts() {
               price={`GHS${Number(product.price)}`}
               image={product.image_url}
               onAddToCart={handleAddToCart}
+              quantity={product.quantity}
+              maxQuantity={20}
             />
           ))
         ) : (

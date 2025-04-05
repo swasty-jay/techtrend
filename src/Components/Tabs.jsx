@@ -1,7 +1,7 @@
 import { useState } from "react";
 import AppleProducts from "./AppleProducts";
 import SamsungProducts from "./SamsungProducts";
-import SonyProducts from "./SonyProducts";
+import SonyProducts from "./PlaystationProducts";
 
 const tabs = [
   {

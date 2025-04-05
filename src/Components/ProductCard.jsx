@@ -19,7 +19,7 @@ function ProductCard({
 
   return (
     <CardWrapper
-      {...(is_active && { whileHover: { scale: 1.02 } })}
+      {...(is_active && { whileHover: { scale: 1.01 } })}
       className={`bg-white rounded-2xl shadow-lg p-2 w-full max-w-xs border border-gray-200 ${
         !is_active ? "opacity-55" : ""
       }`}
@@ -27,14 +27,14 @@ function ProductCard({
       {/* Product Image + Discount Badge */}
       <div className="relative">
         <ImageSkeleton src={image} alt={name} className="w-full h-auto" />
-        <span className="absolute top-1 left-0.5 bg-black text-white text-[6px] md:text-xs font-bold px-2 py-1 rounded-lg">
-          {discount}% OFF
+        <span className="absolute top-1 left-0.5 bg-amber-200 text-amber-500 text-[8px] md:text-[10px] font-bold px-2 py-1 ">
+          {-discount}%
         </span>
       </div>
 
       {/* Product Info */}
       <div className="mt-4 space-y-2 text-center">
-        <h2 className="text-[12px] md:text-[18px] font-semibold text-gray-800">
+        <h2 className="text-[12px] md:text-[16px] font-serif text-gray-800">
           {name}
         </h2>
         {/* Price */}
@@ -42,7 +42,7 @@ function ProductCard({
           <span className="text-[12px] md:text-[14px] font-bold text-gray-900">
             {price}
           </span>
-          <span className=" text-sm text-gray-500 line-through">
+          <span className=" text-xs text-gray-500 line-through">
             GHS{oldPrice}
           </span>
         </div>
