@@ -8,7 +8,10 @@ function ProductCard({
   name,
   price,
   oldPrice,
-  discount,
+  discount = (oldPrice, price) => {
+    return Math.round(((oldPrice - price) / oldPrice) * 100);
+  },
+
   // rating,
   image,
   onAddToCart,
