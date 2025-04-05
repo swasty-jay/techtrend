@@ -3,8 +3,7 @@ import ProductCard from "./ProductCard";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
 import ProductSkeleton from "../UI/ProductSkeleton";
-import { fetchSonyProducts } from "../Services/Api";
-
+import { fetchPlaystationProducts } from "../Services/Api";
 function SonyProducts() {
   const dispatch = useDispatch();
 
@@ -18,7 +17,7 @@ function SonyProducts() {
     isLoading,
   } = useQuery({
     queryKey: ["samsungProducts"],
-    queryFn: fetchSonyProducts,
+    queryFn: fetchPlaystationProducts,
   });
   // console.log(products);
 
@@ -28,7 +27,9 @@ function SonyProducts() {
 
   return (
     <section className="max-w-7xl mx-auto mt-16 px-4 pb-20">
-      <h2 className="text-3xl font-bold text-center mb-8">Samsung Products</h2>
+      <h2 className="text-3xl font-bold text-center mb-8">
+        Playstation products
+      </h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {isLoading ? (

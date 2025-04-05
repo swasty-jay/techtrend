@@ -5,7 +5,6 @@ import HeroSection from "../UI/HeroSection";
 import Footer from "../Components/Footer";
 import SearchBar from "../Features/Search/SearchBar";
 import Tabs from "../Components/Tabs";
-import NewArrival from "./NewArrivals";
 
 const Homepage = () => {
   return (
@@ -22,7 +21,6 @@ const Homepage = () => {
         {/* Tabs Component */}
         <Tabs />
       </div>
-      <NewArrival />
       {/* Footer */}
       <Footer />
     </div>

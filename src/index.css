@@ -59,13 +59,13 @@
 /* //////////////BUTTON CSS/////////// */
 .custom-button {
   width: 100%;
-  font-weight: 500;
+  font-weight: 200;
   padding: 10px;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
   border: none;
   cursor: pointer;
   transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
@@ -85,6 +85,16 @@
 .success {
   background-color: #10b981; /* Green-500 */
   color: white;
+  width: 50%;
+  font-weight: 100;
+  padding: 10px;
+  border-radius: 8px;
+  display: absolute;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: none;
+  cursor: pointer;
 }
 
 .success:hover {
