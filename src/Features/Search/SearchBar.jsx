@@ -8,9 +8,9 @@ const SearchBar = () => {
 
   const searchQuery = useSelector((state) => state.search.query);
   return (
-    <div className="max-w-3xl mx-auto mt-8 px-4">
-      <div className="flex items-center bg-white p-3 rounded-full shadow-lg border border-gray-200">
-        <FaSearch className="text-gray-400" />
+    <div className="    hidden sm:flex flex-1 max-w-md mx-4 ">
+      <div className="flex items-center bg-white  rounded-full shadow-lg border border-gray-200">
+        <FaSearch className=" ml-2 text-gray-400" />
         <input
           type="text"
           className="w-full ml-3 p-2 outline-none bg-transparent placeholder-gray-500"

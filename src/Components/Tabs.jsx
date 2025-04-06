@@ -25,7 +25,7 @@ const Tabs = () => {
   const [activeTab, setActiveTab] = useState(tabs[0].name);
 
   return (
-    <div className="max-w-7xl mx-auto px-4">
+    <div className="max-w-7xl mx-auto px-1 md:px-2">
       {/* Tab Buttons */}
       <div className="flex justify-center space-x-4 mb-6">
         {tabs.map((tab) => (

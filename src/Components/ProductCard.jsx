@@ -20,7 +20,7 @@ function ProductCard({
   return (
     <CardWrapper
       {...(is_active && { whileHover: { scale: 1.01 } })}
-      className={`bg-white rounded-2xl shadow-lg p-2 w-full max-w-xs border border-gray-200 ${
+      className={`bg-white rounded-2xl shadow-lg  w-full max-w-xs border border-gray-200 ${
         !is_active ? "opacity-55" : ""
       }`}
     >

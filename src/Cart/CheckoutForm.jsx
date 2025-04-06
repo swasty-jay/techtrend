@@ -80,7 +80,7 @@ function CheckoutForm() {
           </h3>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-6 ">
           <Button type="submit" variant="success" className="w-full">
             Proceed to Payment
           </Button>

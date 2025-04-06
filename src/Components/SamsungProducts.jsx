@@ -27,7 +27,7 @@ function SamsungProducts() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto mt-16 px-4 pb-20">
+    <section className="max-w-7xl mx-auto mt-16  pb-20">
       <h2 className="text-3xl font-bold text-center mb-8">Samsung Products</h2>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -40,14 +40,15 @@ function SamsungProducts() {
             <ProductCard
               key={product.id}
               oldPrice={product.oldPrice}
-              name={product.name}
+              title={product.title}
               discount={product.discount}
               rating={product.rating}
+              is_active={product.is_active}
               price={`GHS${Number(product.price)}`}
               image={product.image_url}
-              onAddToCart={handleAddToCart}
               quantity={product.quantity}
               maxQuantity={20}
+              onAddToCart={handleAddToCart}
             />
           ))
         ) : (
