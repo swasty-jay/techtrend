@@ -72,7 +72,7 @@ function CheckOut({ onClose }) {
 
       <div
         ref={modalRef}
-        className="bg-white w-full max-w-6xl max-h-[90vh] overflow-y-auto rounded-lg p-6 shadow-lg relative"
+        className="bg-white w-full max-w-6xl  max-h-[80vh] overflow-y-auto rounded-lg p-6 shadow-lg relative"
       >
         <h2 className="text-2xl font-bold mb-6">Your Cart</h2>
 
