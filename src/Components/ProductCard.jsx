@@ -3,8 +3,10 @@ import { FaShoppingCart } from "react-icons/fa";
 import Rating from "../UI/Rating";
 import Button from "../UI/Button";
 import ImageSkeleton from "../UI/ImageSkeleton";
+import { useNavigate } from "react-router-dom";
 
 function ProductCard({
+  id,
   title: name,
   price,
   oldPrice,
@@ -17,8 +19,11 @@ function ProductCard({
 }) {
   const CardWrapper = is_active ? motion.div : "div";
 
+  const navigate = useNavigate();
+
   return (
     <CardWrapper
+      onClick={() => navigate(`/product/${id}`)}
       {...(is_active && { whileHover: { scale: 1.01 } })}
       className={`bg-white rounded-2xl shadow-lg  w-full max-w-xs border border-gray-200 ${
         !is_active ? "opacity-55" : ""
