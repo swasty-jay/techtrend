@@ -37,21 +37,28 @@ function PlaystationProducts() {
             .fill(0)
             .map((_, index) => <ProductSkeleton key={index} />)
         ) : products.length > 0 ? (
-          products.map((product) => (
-            <ProductCard
-              key={product.id}
-              oldPrice={product.oldPrice}
-              title={product.title}
-              discount={product.discount}
-              rating={product.rating}
-              is_active={product.is_active}
-              price={`GHS${Number(product.price)}`}
-              image={product.image_url}
-              quantity={product.quantity}
-              maxQuantity={20}
-              onAddToCart={handleAddToCart}
-            />
-          ))
+          products.map(
+            (product) => (
+              console.log(product),
+              (
+                <ProductCard
+                  key={product.id}
+                  id={product.id}
+                  brand={product.brand}
+                  oldPrice={product.oldPrice}
+                  title={product.title}
+                  discount={product.discount}
+                  rating={product.rating}
+                  is_active={product.is_active}
+                  price={`GHS${Number(product.price)}`}
+                  image={product.image_url}
+                  quantity={product.quantity}
+                  maxQuantity={20}
+                  onAddToCart={handleAddToCart}
+                />
+              )
+            )
+          )
         ) : (
           <p className="text-center text-gray-600 col-span-full">
             No products found.

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { FaShoppingCart } from "react-icons/fa";
-import Rating from "../UI/Rating";
 import Button from "../UI/Button";
 import ImageSkeleton from "../UI/ImageSkeleton";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +8,7 @@ function ProductCard({
   id,
   title: name,
   price,
+  brand,
   oldPrice,
   discount,
   is_active,
@@ -20,10 +20,11 @@ function ProductCard({
   const CardWrapper = is_active ? motion.div : "div";
 
   const navigate = useNavigate();
+  // console.log("ProductCard props:", { id, name });
 
   return (
     <CardWrapper
-      onClick={() => navigate(`/product/${id}`)}
+      onClick={() => navigate(`/products/${brand}/${id}`)}
       {...(is_active && { whileHover: { scale: 1.01 } })}
       className={`bg-white rounded-2xl shadow-lg  w-full max-w-xs border border-gray-200 ${
         !is_active ? "opacity-55" : ""

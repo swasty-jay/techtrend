@@ -39,8 +39,11 @@ function AppleProducts() {
             .map((_, index) => <ProductSkeleton key={index} />)
         ) : products.length > 0 ? (
           products.map((product) => (
+            // console.log("Product data:", product),
             <ProductCard
               key={product.id}
+              id={product.id}
+              brand={product.brand}
               oldPrice={product.oldPrice}
               title={product.title}
               discount={product.discount}

@@ -1,40 +1,97 @@
+import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAppleProducts } from "../Services/Api";
+import {
+  fetchAppleProducts,
+  fetchSamsungProducts,
+  fetchPlaystationProducts,
+} from "../Services/Api";
 import { FaStar } from "react-icons/fa";
 import { Toaster, toast } from "react-hot-toast";
+import NotFound from "./../UI/NotFound";
+import { motion } from "framer-motion";
+import Breadcrumb from "../UI/BreadCrumb";
 
 function ProductDetails() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { brand, id } = useParams();
+  const [quantity, setQuantity] = React.useState(1);
+
+  const fetchProducts = async () => {
+    if (brand === "apple") return await fetchAppleProducts();
+    if (brand === "samsung") return await fetchSamsungProducts();
+    if (brand === "Playstation") return await fetchPlaystationProducts();
+    return [];
+  };
+
   const {
     data: products,
     isLoading,
     error,
   } = useQuery({
-    queryKey: ["appleProducts"],
-    queryFn: fetchAppleProducts,
+    queryKey: [brand, id],
+    queryFn: fetchProducts,
   });
 
   if (isLoading) return <p className="text-center">Loading...</p>;
   if (error) return <p className="text-red-500 text-center">{error.message}</p>;
 
   const product = products.find((p) => String(p.id) === id);
+  if (!["apple", "samsung", "Playstation"].includes(brand) || !product)
+    return <NotFound />;
 
   const handleAddToCart = () => {
-    dispatch(addToCart({ ...product, id: Date.now() }));
+    const updatedProduct = {
+      id: product.id,
+      name: product.title,
+      image: product.image_url,
+      price: product.price,
+      quantity,
+    };
+
+    dispatch(addToCart(updatedProduct));
     toast.success("Added to cart!");
   };
 
+  const handleQuantityChange = (delta) => {
+    setQuantity((prev) => Math.max(1, prev + delta));
+  };
+
   return (
-    <section className="max-w-7xl mx-auto px-4 py-10">
+    <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       <Toaster position="top-center" />
-      <div className="flex flex-col lg:flex-row gap-10">
-        {/* Left: Image Thumbnails */}
-        <div className="w-full lg:w-1/2 flex flex-col items-center">
-          <div className="w-full aspect-square bg-white border rounded-lg overflow-hidden">
+
+      {/* Breadcrumb */}
+      {/* <nav className="mb-6 text-xs sm:text-sm text-gray-600">
+        <Link to="/" className="hover:underline">
+          Home
+        </Link>{" "}
+        /{" "}
+        <Link to={`/${brand}`} className="hover:underline capitalize">
+          {brand}
+        </Link>{" "}
+        / <span className="text-black font-medium">{product.title}</span>
+      </nav> */}
+
+      <Breadcrumb
+        paths={[
+          { label: "Home", to: "/" },
+          { label: brand, to: `/${brand}` },
+          { label: product.title },
+        ]}
+      />
+
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
+        {/* Left: Images */}
+        <motion.div
+          className="w-full lg:w-1/2 flex flex-col items-center"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="w-full aspect-square  border rounded-lg border-gray-300  overflow-hidden">
             <img
               src={product.image_url}
               alt={product.title}
@@ -42,28 +99,32 @@ function ProductDetails() {
             />
           </div>
 
-          {/* Thumbnails */}
-          <div className="mt-4 flex gap-4 justify-center">
+          <div className="mt-4 grid grid-cols-4 sm:grid-cols-5 gap-2">
             {[...Array(4)].map((_, index) => (
               <div
                 key={index}
-                className="w-20 h-20 border rounded hover:border-red-500 transition"
+                className="w-16 sm:w-20 h-16 sm:h-20 border rounded border-gray-400 hover:border-gray-500 transition"
               >
                 <img
                   src={product.image_url}
                   alt="Thumbnail"
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain cursor-pointer"
                 />
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Right: Product Info */}
-        <div className="w-full lg:w-1/2 space-y-4">
-          <h2 className="text-2xl font-semibold">{product.title}</h2>
+        {/* Right: Info */}
+        <motion.div
+          className="w-full lg:w-1/2 space-y-5"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <h2 className="text-xl sm:text-2xl font-semibold">{product.title}</h2>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 text-sm sm:text-base">
             <div className="flex text-yellow-400">
               {Array(Math.round(product.rating || 4))
                 .fill(0)
@@ -77,46 +138,55 @@ function ProductDetails() {
             </span>
           </div>
 
-          <p className="text-2xl font-bold text-gray-800">
+          <p className="text-xl sm:text-2xl font-bold text-gray-800">
             GHS{Number(product.price)}
           </p>
 
-          <p className="text-gray-600">
-            PlayStation 5 Controller Skin High quality vinyl with air channel
-            adhesive for easy bubble-free install & mess-free removal. Pressure
-            sensitive.
+          <p className="text-gray-600 text-sm sm:text-base">
+            {product.description}
           </p>
 
           {/* Quantity Selector */}
-          <div className="flex items-center gap-3 mt-4">
+          <div className="flex items-center gap-3 mt-4 text-sm sm:text-base">
             <span>Quantity:</span>
-            <button className="border px-3 py-1 rounded">-</button>
-            <span className="font-semibold">{product.quantity || 1}</span>
-            <button className="border px-3 py-1 rounded">+</button>
-          </div>
-
-          {/* Add to Cart */}
-          <div className="flex gap-4 mt-6">
             <button
-              onClick={handleAddToCart}
-              className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition"
+              onClick={() => handleQuantityChange(-1)}
+              className="border px-3 py-1 rounded border-gray-300"
             >
-              Add to Cart
+              -
+            </button>
+            <span className="font-semibold">{quantity}</span>
+            <button
+              onClick={() => handleQuantityChange(1)}
+              className="border px-3 py-1 rounded border-gray-300"
+            >
+              +
             </button>
           </div>
 
-          {/* Extra Info */}
+          {/* Add to Cart Button */}
+          <div className="flex flex-wrap gap-4 mt-6">
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={handleAddToCart}
+              className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition text-sm sm:text-base"
+            >
+              Add to Cart
+            </motion.button>
+          </div>
+
+          {/* Delivery Info */}
           <div className="mt-6 space-y-3 text-sm text-gray-600">
-            <div className="border p-3 rounded">
+            <div className="border p-3 rounded border-gray-400">
               <p className="font-medium">🚚 Free Delivery</p>
               <p>Enter your postal code for Delivery Availability</p>
             </div>
-            <div className="border p-3 rounded">
+            <div className="border p-3 rounded border-gray-400">
               <p className="font-medium">↩️ Return Delivery</p>
               <p>Free 30 Days Delivery Returns. Details</p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

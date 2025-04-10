@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineAlignRight } from "react-icons/ai";
 import { FaShoppingCart, FaUser, FaTimes, FaChevronDown } from "react-icons/fa";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CheckOut from "../Cart/CheckOut";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -21,6 +21,7 @@ const NavBar = () => {
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
   const closeDrawer = () => setIsDrawerOpen(false);
+  const navigate = useNavigate();
 
   return (
     <nav className="bg-gray-200 shadow-md fixed w-full top-0 z-50 font-medium">
@@ -90,7 +91,12 @@ const NavBar = () => {
           {/* Cart */}
           <div
             className="relative cursor-pointer"
-            onClick={() => setShowCart(true)}
+            onClick={() => {
+              setShowCart(false); // hide the cart first
+              setTimeout(() => {
+                navigate("/checkOut");
+              }, 300); // delay so the hide animation can complete
+            }}
           >
             <FaShoppingCart className="text-gray-700 hover:text-gray-800 text-2xl" />
             {totalCartItems > 0 && (
