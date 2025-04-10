@@ -13,6 +13,7 @@ import { Toaster, toast } from "react-hot-toast";
 import NotFound from "./../UI/NotFound";
 import { motion } from "framer-motion";
 import Breadcrumb from "../UI/BreadCrumb";
+import Spinner from "../UI/Spinner";
 
 function ProductDetails() {
   const dispatch = useDispatch();
@@ -36,7 +37,13 @@ function ProductDetails() {
     queryFn: fetchProducts,
   });
 
-  if (isLoading) return <p className="text-center">Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="fixed inset-0 bg-white/80 z-50 flex items-center justify-center">
+        <Spinner />
+      </div>
+    );
+
   if (error) return <p className="text-red-500 text-center">{error.message}</p>;
 
   const product = products.find((p) => String(p.id) === id);
