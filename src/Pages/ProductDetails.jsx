@@ -18,7 +18,7 @@ function ProductDetails() {
   const dispatch = useDispatch();
   const { brand, id } = useParams();
   const [quantity, setQuantity] = React.useState(1);
-
+  //////// FECTCH FUNTIONS////////////
   const fetchProducts = async () => {
     if (brand === "apple") return await fetchAppleProducts();
     if (brand === "samsung") return await fetchSamsungProducts();
@@ -26,6 +26,7 @@ function ProductDetails() {
     return [];
   };
 
+  ///////////REACT QUERY//////////
   const {
     data: products,
     isLoading,
@@ -78,7 +79,7 @@ function ProductDetails() {
       <Breadcrumb
         paths={[
           { label: "Home", to: "/" },
-          { label: brand, to: `/${brand}` },
+          // { label: brand, to: `/${brand}` },
           { label: product.title },
         ]}
       />
@@ -167,11 +168,19 @@ function ProductDetails() {
           {/* Add to Cart Button */}
           <div className="flex flex-wrap gap-4 mt-6">
             <motion.button
-              whileTap={{ scale: 0.95 }}
-              onClick={handleAddToCart}
-              className="bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600 transition text-sm sm:text-base"
+              whileTap={product.is_active ? { scale: 0.95 } : {}}
+              onClick={() => {
+                if (!product.is_active) return;
+                handleAddToCart();
+              }}
+              className={`px-6 py-2 rounded transition text-sm sm:text-base text-white ${
+                product.is_active
+                  ? "bg-red-500 hover:bg-red-600"
+                  : "bg-red-400 cursor-not-allowed opacity-50"
+              }`}
+              disabled={!product.is_active}
             >
-              Add to Cart
+              {product.is_active ? "Add to Cart" : "Out of Stock"}
             </motion.button>
           </div>
 

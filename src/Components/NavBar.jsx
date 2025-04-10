@@ -159,7 +159,12 @@ const NavBar = () => {
 
           <div
             className="relative cursor-pointer"
-            onClick={() => setShowCart(true)}
+            onClick={() => {
+              setShowCart(false); // hide the cart first
+              setTimeout(() => {
+                navigate("/checkOut");
+              }, 300); // delay so the hide animation can complete
+            }}
           >
             <FaShoppingCart className="text-black text-2xl" />
             {totalCartItems > 0 && (

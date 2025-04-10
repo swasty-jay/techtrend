@@ -24,17 +24,20 @@ function ProductCard({
 
   return (
     <CardWrapper
-      onClick={() => navigate(`/products/${brand}/${id}`)}
+      // onClick={() => navigate(`/products/${brand}/${id}`)}
       {...(is_active && { whileHover: { scale: 1.01 } })}
       className={`bg-white rounded-2xl shadow-lg  w-full max-w-xs border border-gray-200 ${
         !is_active ? "opacity-55" : ""
       }`}
     >
       {/* Product Image + Discount Badge */}
-      <div className="relative">
+      <div
+        className="relative cursor-pointer"
+        onClick={() => navigate(`/products/${brand}/${id}`)}
+      >
         <ImageSkeleton src={image} alt={name} className="w-full h-auto" />
         <span className="absolute top-1 left-0.5 bg-amber-200 text-amber-500 text-[8px] md:text-[10px] font-bold px-2 py-1 ">
-          {-discount}%
+          -{discount}%
         </span>
       </div>
 
@@ -46,7 +49,7 @@ function ProductCard({
         {/* Price */}
         <div className="flex items-center justify-center space-x-2">
           <span className="text-[12px] md:text-[14px] font-bold text-gray-900">
-            {price}
+            GHS{price}
           </span>
           <span className=" text-xs text-gray-500 line-through">
             GHS{oldPrice}

@@ -50,7 +50,8 @@ function PlaystationProducts() {
                   discount={product.discount}
                   rating={product.rating}
                   is_active={product.is_active}
-                  price={`GHS${Number(product.price)}`}
+                  // price={`GHS${Number(product.price)}`}
+                  price={product.price}
                   image={product.image_url}
                   quantity={product.quantity}
                   maxQuantity={20}
