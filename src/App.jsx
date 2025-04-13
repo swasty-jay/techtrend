@@ -6,20 +6,83 @@ import CheckoutForm from "./Cart/CheckoutForm";
 import Homepage from "./Pages/Home";
 import ProductDetails from "./Pages/ProductDetails";
 import CheckOut from "./Cart/CheckOut";
+import AppLayout from "./UI/AppLayout";
+import MotionWrapper from "./UI/MotionWrapper";
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
 
 const router = createBrowserRouter([
   {
-    // path: "/",
-    // element: <Layout />, // The main layout (optional)
+    path: "/",
+    element: <AppLayout />,
     children: [
-      { index: true, element: <Homepage /> }, // Home page at "/"
-      { path: "dashboard", element: <Dashboard /> }, // About page at "/about"
-      { path: "checkoutForm", element: <CheckoutForm /> },
-      { path: "/checkout", element: <CheckOut /> },
-      { path: "/products/:brand/:id", element: <ProductDetails /> },
+      {
+        index: true,
+        element: (
+          <MotionWrapper>
+            <Homepage />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "dashboard",
+        element: (
+          <MotionWrapper>
+            <Dashboard />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "checkoutForm",
+        element: (
+          <MotionWrapper>
+            <CheckoutForm />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "checkout",
+        element: (
+          <MotionWrapper>
+            <CheckOut />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "products/:brand/:id",
+        element: (
+          <MotionWrapper>
+            <ProductDetails />
+          </MotionWrapper>
+        ),
+      },
+
+      {
+        path: "/login",
+        element: (
+          <MotionWrapper>
+            <Login />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "/signup",
+        element: (
+          <MotionWrapper>
+            <SignUp />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "*",
+        element: (
+          <MotionWrapper>
+            <NotFound />
+          </MotionWrapper>
+        ),
+      },
     ],
   },
-  { path: "*", element: <NotFound /> }, // 404 page
 ]);
 
 function App() {

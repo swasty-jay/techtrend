@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { AiOutlineAlignRight } from "react-icons/ai";
 import { FaShoppingCart, FaUser, FaTimes, FaChevronDown } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import CheckOut from "../Cart/CheckOut";
+import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NavBar = () => {
   const cartItems = useSelector((state) => state.cart.items);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const [showCart, setShowCart] = useState(false);
   const [isCategoryDropdownOpen, setIsCategoryDropdownOpen] = useState(false);
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   const totalCartItems = cartItems.reduce(
     (sum, item) => sum + item.quantity,
@@ -20,33 +19,42 @@ const NavBar = () => {
 
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
-  const closeDrawer = () => setIsDrawerOpen(false);
-  const navigate = useNavigate();
-
   return (
     <nav className="bg-gray-200 shadow-md fixed w-full top-0 z-50 font-medium">
-      <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between space-x-1 items-center ">
-        {/* Brand */}
-        <h1 className="text-2xl font-bold text-gray-700 hover:text-gray-800">
+      <div className="max-w-7xl mx-auto px-4 py-4 relative flex items-center justify-between">
+        {/* Left: Brand */}
+        <Link
+          to="/"
+          className="text-2xl font-bold text-gray-700 hover:text-gray-800 absolute left-1/2 transform -translate-x-1/2 md:static md:translate-x-0 md:left-0"
+        >
           TechTrend
-        </h1>
+        </Link>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6 relative">
-          <Link to="/" className=" text-gray-700 hover:text-gray-800">
-            Home
-          </Link>
-          <Link to="/shop" className=" text-gray-700 hover:text-gray-800">
+        {/* Mobile Cart Icon (Left) */}
+        <div
+          className="md:hidden absolute left-4"
+          onClick={() => navigate("/checkOut")}
+        >
+          <FaShoppingCart className="text-gray-700 hover:text-gray-800 text-2xl" />
+          {totalCartItems > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {totalCartItems}
+            </span>
+          )}
+        </div>
+
+        {/* Center: Nav Links */}
+        <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 space-x-6">
+          <Link to="/shop" className="text-gray-700 hover:text-gray-800">
             Shop
           </Link>
 
-          {/* Categories Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setIsCategoryDropdownOpen(true)}
             onMouseLeave={() => setIsCategoryDropdownOpen(false)}
           >
-            <div className="flex items-center  cursor-pointer  text-gray-700 hover:text-gray-800">
+            <div className="flex items-center cursor-pointer text-gray-700 hover:text-gray-800">
               <span>Categories</span>
               <FaChevronDown className="ml-1 text-sm" />
             </div>
@@ -62,13 +70,13 @@ const NavBar = () => {
                     to="/categories/samsung"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
-                    Samsung products
+                    Samsung
                   </Link>
                   <Link
                     to="/categories/apple"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
-                    Apple products
+                    Apple
                   </Link>
                   <Link
                     to="/categories/accessories"
@@ -81,22 +89,19 @@ const NavBar = () => {
             </AnimatePresence>
           </div>
 
-          <Link to="/about" className=" text-gray-700 hover:text-gray-800">
+          <Link to="/about" className="text-gray-700 hover:text-gray-800">
             About
           </Link>
-          <Link to="/contact" className=" text-gray-700 hover:text-gray-800">
-            Contact
+          <Link to="/contact" className="text-gray-700 hover:text-gray-800">
+            Contact Us
           </Link>
+        </div>
 
-          {/* Cart */}
+        {/* Right: Cart + Profile */}
+        <div className="hidden md:flex items-center space-x-6">
           <div
             className="relative cursor-pointer"
-            onClick={() => {
-              setShowCart(false); // hide the cart first
-              setTimeout(() => {
-                navigate("/checkOut");
-              }, 300); // delay so the hide animation can complete
-            }}
+            onClick={() => navigate("/checkOut")}
           >
             <FaShoppingCart className="text-gray-700 hover:text-gray-800 text-2xl" />
             {totalCartItems > 0 && (
@@ -106,13 +111,12 @@ const NavBar = () => {
             )}
           </div>
 
-          {/* Profile Dropdown */}
           <div
             className="relative"
             onMouseEnter={() => setIsProfileDropdownOpen(true)}
             onMouseLeave={() => setIsProfileDropdownOpen(false)}
           >
-            <div className="flex items-center text-black cursor-pointer ">
+            <div className="flex items-center cursor-pointer text-gray-700 hover:text-gray-800">
               <FaUser className="text-2xl" />
               <FaChevronDown className="ml-1 text-sm" />
             </div>
@@ -122,27 +126,21 @@ const NavBar = () => {
                   initial={{ opacity: 0, y: -5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
-                  className="absolute top-8 right-0 bg-gray-200 shadow-lg rounded-md py-2 w-40 z-30"
+                  className="absolute top-8 right-0 bg-white shadow-lg rounded-md py-2 w-40 z-30"
                 >
                   <Link
                     to="/profile/account"
-                    className="block px-4 py-2 hover:bg-gray-100 text-[14] hover:text-black"
+                    className="block px-4 py-2 hover:bg-gray-100"
                   >
-                    Account Management
+                    Account
                   </Link>
                   <Link
                     to="/profile/orders"
                     className="block px-4 py-2 hover:bg-gray-100"
                   >
-                    My Orders
+                    Orders
                   </Link>
-                  {/* <Link
-                    to="/profile/orders"
-                    className="block px-4 py-2 hover:bg-gray-100"
-                  >
-                    Cancelled Orders
-                  </Link> */}
-                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100 font-semibold">
+                  <button className="block w-full text-left px-4 py-2 hover:bg-gray-100">
                     Logout
                   </button>
                 </motion.div>
@@ -151,39 +149,17 @@ const NavBar = () => {
           </div>
         </div>
 
-        {/* Mobile Icons */}
-        <div className="md:hidden flex items-center space-x-6">
-          <Link to="/profile">
-            <FaUser className="text-black text-2xl" />
-          </Link>
-
-          <div
-            className="relative cursor-pointer"
-            onClick={() => {
-              setShowCart(false); // hide the cart first
-              setTimeout(() => {
-                navigate("/checkOut");
-              }, 300); // delay so the hide animation can complete
-            }}
-          >
-            <FaShoppingCart className="text-black text-2xl" />
-            {totalCartItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                {totalCartItems}
-              </span>
-            )}
-          </div>
-          <button
-            onClick={toggleDrawer}
-            className="text-white focus:outline-none"
-          >
-            {isDrawerOpen ? (
-              <FaTimes className="text-medium text-black" />
-            ) : (
-              <AiOutlineAlignRight className="text-medium text-black" />
-            )}
-          </button>
-        </div>
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={toggleDrawer}
+          className="md:hidden absolute right-4 text-gray-700"
+        >
+          {isDrawerOpen ? (
+            <FaTimes className="text-2xl" />
+          ) : (
+            <AiOutlineAlignRight className="text-2xl" />
+          )}
+        </button>
       </div>
 
       {/* Mobile Drawer */}
@@ -205,64 +181,63 @@ const NavBar = () => {
             </div>
 
             <div className="flex flex-col space-y-4 p-6">
-              <Link to="/" onClick={closeDrawer}>
+              <Link to="/" onClick={toggleDrawer}>
                 Home
               </Link>
-              <Link to="/shop" onClick={closeDrawer}>
+              <Link to="/shop" onClick={toggleDrawer}>
                 Shop
               </Link>
 
-              {/* Categories Dropdown in Drawer */}
               <details className="group">
-                <summary className="flex justify-between cursor-pointer text-gray-800 ">
-                  Categories{" "}
+                <summary className="flex justify-between cursor-pointer text-gray-800">
+                  Categories
                   <FaChevronDown className="text-sm group-open:rotate-180 transition" />
                 </summary>
                 <div className="ml-4 mt-2 flex flex-col space-y-2">
-                  <Link to="/categories/samsung" onClick={closeDrawer}>
+                  <Link to="/categories/samsung" onClick={toggleDrawer}>
                     Samsung
                   </Link>
-                  <Link to="/categories/apple" onClick={closeDrawer}>
+                  <Link to="/categories/apple" onClick={toggleDrawer}>
                     Apple
                   </Link>
-                  <Link to="/categories/accessories" onClick={closeDrawer}>
+                  <Link to="/categories/accessories" onClick={toggleDrawer}>
                     Accessories
                   </Link>
                 </div>
               </details>
 
-              <Link to="/about" onClick={closeDrawer}>
+              <Link to="/about" onClick={toggleDrawer}>
                 About
               </Link>
-              <Link to="/contact" onClick={closeDrawer}>
+              <Link to="/contact" onClick={toggleDrawer}>
                 Contact
               </Link>
 
-              {/* Profile Dropdown in Drawer */}
               <details className="group">
-                <summary className="flex justify-between cursor-pointer text-gray-800 hover:text-blue-600">
-                  Profile{" "}
+                <summary className="flex justify-between cursor-pointer text-gray-800">
+                  Profile
                   <FaChevronDown className="text-sm group-open:rotate-180 transition" />
                 </summary>
                 <div className="ml-4 mt-2 flex flex-col space-y-2">
-                  <Link to="/profile/account" onClick={closeDrawer}>
+                  <Link to="/profile/account" onClick={toggleDrawer}>
                     Account
                   </Link>
-                  <Link to="/profile/orders" onClick={closeDrawer}>
+                  <Link to="/profile/orders" onClick={toggleDrawer}>
                     Orders
                   </Link>
-                  <button onClick={closeDrawer} className="text-left">
+                  <button onClick={toggleDrawer} className="text-left">
                     Logout
                   </button>
                 </div>
               </details>
+
+              <Link to="/signup" onClick={toggleDrawer}>
+                Sign Up
+              </Link>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Cart Modal */}
-      {showCart && <CheckOut onClose={() => setShowCart(false)} />}
     </nav>
   );
 };

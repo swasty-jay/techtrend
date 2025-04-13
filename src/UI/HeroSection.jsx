@@ -10,7 +10,7 @@ export function HeroImageBackground() {
       description: "Explore the best in iPhone, iPad, and Mac accessories",
       buttonText: "Shop Apple",
       image:
-        "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/bg-images//Best-iPhone-Accessories-0-Hero.jpg",
+        "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/bg-images//iphone.png",
     },
     {
       title: "Top Samsung Products & Accessories",

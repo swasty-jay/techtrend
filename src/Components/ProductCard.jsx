@@ -15,7 +15,7 @@ function ProductCard({
   is_active,
   image,
   quantity, // 🆕
-  maxQuantity = 20, // 🆕 Default max quantity
+  maxQuantity = 50, // 🆕 Default max quantity
   onAddToCart,
 }) {
   const CardWrapper = is_active ? motion.div : "div";
