@@ -3,6 +3,7 @@ import { FaShoppingCart } from "react-icons/fa";
 import Button from "../UI/Button";
 import ImageSkeleton from "../UI/ImageSkeleton";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 function ProductCard({
   id,
@@ -67,10 +68,18 @@ function ProductCard({
               <span>Stock</span>
               <span>{quantity} left</span>
             </div>
-            <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+            <div
+              className="w-full h-2 bg-gray-200 rounded-full overflow-hidden"
+              role="progressbar"
+              aria-valuenow={quantity}
+              aria-valuemin={0}
+              aria-valuemax={maxQuantity}
+            >
               <div
                 className="h-full bg-amber-500"
-                style={{ width: `${(quantity / maxQuantity) * 100}%` }}
+                style={{
+                  width: `${Math.min((quantity / maxQuantity) * 100, 100)}%`,
+                }}
               />
             </div>
           </div>
@@ -97,5 +106,20 @@ function ProductCard({
     </CardWrapper>
   );
 }
+
+// Define PropTypes
+ProductCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  brand: PropTypes.string.isRequired,
+  oldPrice: PropTypes.number,
+  discount: PropTypes.number.isRequired,
+  is_active: PropTypes.bool.isRequired,
+  image: PropTypes.string.isRequired,
+  quantity: PropTypes.number.isRequired,
+  maxQuantity: PropTypes.number,
+  onAddToCart: PropTypes.func.isRequired,
+};
 
 export default ProductCard;
