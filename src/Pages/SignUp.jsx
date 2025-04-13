@@ -1,27 +1,32 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { supabase } from "./../../supabase";
+import { supabase } from "./../../supabase"; // Adjust the import path as necessary
+import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-hot-toast";
 
-const SignUp = () => {
+const Signup = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = async (data) => {
-    const { name, email, password } = data;
+    const { email, password } = data;
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: { name },
-      },
     });
 
     if (error) {
-      alert(error.message);
+      toast.error(error.message);
     } else {
-      alert("Account created! Check your email to confirm.");
+      toast.success("Account created! Check your email for verification.");
     }
   };
 
@@ -30,89 +35,111 @@ const SignUp = () => {
       provider: "google",
     });
 
-    if (error) alert(error.message);
+    if (error) toast.error(error.message);
   };
 
   return (
     <div className="min-h-screen flex">
       {/* Left Image Section */}
-      <div className="w-1/2 bg-gray-100 flex items-center justify-center">
+      <div className="w-1/2 bg-[#E3F1F4] hidden md:flex items-center justify-center">
         <img
-          src="/assets/signup-graphic.png" // Replace with your actual image path
-          alt="E-commerce"
-          className="max-w-full h-auto"
+          src="/assets/signup-graphic.png" // replace with actual image
+          alt="Sign Up Visual"
+          className="max-w-[80%] h-auto"
         />
       </div>
 
       {/* Right Form Section */}
-      <div className="w-1/2 flex items-center justify-center p-10">
+      <div className="w-full md:w-1/2 flex items-center justify-center px-8 py-10">
         <div className="w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-2">Create an account</h2>
-          <p className="mb-6 text-sm text-gray-600">Enter your details below</p>
+          <h2 className="text-2xl font-bold mb-1">Create Account</h2>
+          <p className="text-sm text-gray-600 mb-6">Enter your details below</p>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            <input
-              type="text"
-              placeholder="Name"
-              {...register("name", { required: "Name is required" })}
-              className="w-full p-3 border rounded"
-            />
-            {errors.name && (
-              <p className="text-red-500 text-sm">{errors.name.message}</p>
-            )}
-
             <input
               type="email"
               placeholder="Email"
               {...register("email", { required: "Email is required" })}
-              className="w-full p-3 border rounded"
+              className="w-full border-b outline-none py-2 placeholder-gray-500"
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
             )}
 
-            <input
-              type="password"
-              placeholder="Password"
-              {...register("password", { required: "Password is required" })}
-              className="w-full p-3 border rounded"
-            />
+            {/* Password */}
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: { value: 6, message: "Minimum 6 characters" },
+                })}
+                className="w-full border-b outline-none py-2 placeholder-gray-500 pr-10"
+              />
+              <button
+                type="button"
+                className="absolute right-0 top-2 text-sm text-blue-500"
+                onClick={() => setShowPassword((prev) => !prev)}
+              >
+                {showPassword ? "Hide" : "Show"}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-red-500 text-sm">{errors.password.message}</p>
             )}
 
+            {/* Confirm Password */}
+            <div className="relative">
+              <input
+                type={showConfirm ? "text" : "password"}
+                placeholder="Confirm Password"
+                {...register("confirmPassword", {
+                  required: "Please confirm password",
+                  validate: (val) =>
+                    val === watch("password") || "Passwords do not match",
+                })}
+                className="w-full border-b outline-none py-2 placeholder-gray-500 pr-10"
+              />
+              <button
+                type="button"
+                className="absolute right-0 top-2 text-sm text-blue-500"
+                onClick={() => setShowConfirm((prev) => !prev)}
+              >
+                {showConfirm ? "Hide" : "Show"}
+              </button>
+            </div>
+            {errors.confirmPassword && (
+              <p className="text-red-500 text-sm">
+                {errors.confirmPassword.message}
+              </p>
+            )}
+
             <button
               type="submit"
-              className="w-full bg-red-500 hover:bg-red-600 text-white p-3 rounded"
+              className="w-full bg-red-500 text-white px-6 py-2 rounded hover:bg-red-600"
             >
-              Create Account
+              Sign Up
             </button>
           </form>
 
-          <div className="mt-4">
-            <button
-              onClick={handleGoogleSignUp}
-              className="w-full border p-3 rounded flex items-center justify-center gap-2"
-            >
-              <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
-                alt="Google"
-                className="w-5 h-5"
-              />
-              <span>Sign up with Google</span>
-            </button>
+          {/* Divider */}
+          <div className="my-4 flex items-center justify-center">
+            <span className="text-gray-400 text-sm">or</span>
           </div>
 
-          <p className="text-sm text-center mt-6">
-            Already have account?{" "}
-            <a href="/login" className="text-blue-600 font-medium">
-              Log in
-            </a>
-          </p>
+          {/* Google Sign Up */}
+          <button
+            onClick={handleGoogleSignUp}
+            className="flex items-center justify-center gap-2 w-full border px-6 py-2 rounded hover:bg-gray-50"
+          >
+            <FcGoogle className="text-xl" />
+            Sign up with Google
+          </button>
         </div>
       </div>
     </div>
   );
 };
 
-export default SignUp;
+export default Signup;
