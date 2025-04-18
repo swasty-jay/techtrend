@@ -1,6 +1,5 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Dashboard from "./Pages/Dashboard";
 import NotFound from "./UI/NotFound";
 import CheckoutForm from "./Cart/CheckoutForm";
 import Homepage from "./Pages/Home";
@@ -24,14 +23,7 @@ const router = createBrowserRouter([
           </MotionWrapper>
         ),
       },
-      {
-        path: "dashboard",
-        element: (
-          <MotionWrapper>
-            <Dashboard />
-          </MotionWrapper>
-        ),
-      },
+
       {
         path: "checkoutForm",
         element: (

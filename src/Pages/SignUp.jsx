@@ -82,7 +82,7 @@ const Signup = () => {
                 className="absolute right-0 top-2 text-sm text-blue-500"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? "Hide" : "Show"}
+                {showPassword ? "🙈" : "🙉"}
               </button>
             </div>
             {errors.password && (
@@ -106,7 +106,7 @@ const Signup = () => {
                 className="absolute right-0 top-2 text-sm text-blue-500"
                 onClick={() => setShowConfirm((prev) => !prev)}
               >
-                {showConfirm ? "Hide" : "Show"}
+                {showConfirm ? "🙈" : "🙉"}
               </button>
             </div>
             {errors.confirmPassword && (
