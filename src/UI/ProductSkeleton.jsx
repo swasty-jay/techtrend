@@ -5,7 +5,7 @@ function ProductSkeleton() {
     <motion.div
       animate={{ opacity: [0.6, 1, 0.6] }}
       transition={{ repeat: Infinity, duration: 1.5 }}
-      className="bg-gray-300 rounded-xl shadow-md overflow-hidden p-4"
+      className="bg-gray-300 rounded-lg shadow-md overflow-hidden p-4"
     >
       <div className="w-full h-48 bg-gray-400 animate-pulse"></div>
       <div className="mt-3 h-5 w-3/4 bg-gray-400 animate-pulse"></div>

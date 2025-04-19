@@ -14,9 +14,9 @@ function ProductCard({
   discount,
   is_active,
   image,
-  quantity, // 🆕
-  maxQuantity = 50, // 🆕 Default max quantity
-  onAddToCart,
+  quantity,
+  maxQuantity = 50, // Default max quantity
+  // onAddToCart,
 }) {
   const CardWrapper = is_active ? motion.div : "div";
 
@@ -25,7 +25,6 @@ function ProductCard({
 
   return (
     <CardWrapper
-      // onClick={() => navigate(`/products/${brand}/${id}`)}
       {...(is_active && { whileHover: { scale: 1.01 } })}
       className={`bg-white rounded-2xl shadow-lg  w-full max-w-xs border border-gray-200 ${
         !is_active ? "opacity-55" : ""
@@ -90,11 +89,10 @@ function ProductCard({
           <Button
             className="flex items-center space-x-2"
             variant="primary"
-            onClick={() => onAddToCart({ name, price, image })}
+            onClick={() => navigate(`/products/${brand}/${id}`)}
           >
-            <FaShoppingCart />
-            <span className="text-[9px] font-semibold md:text-[14px]">
-              Add to cart
+            <span className="text-[9px] font-semibold sm:text-[14px]">
+              view product
             </span>
           </Button>
         ) : (

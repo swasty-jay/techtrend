@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import {
   fetchAppleProducts,
@@ -39,9 +39,9 @@ function ProductDetails() {
 
   if (isLoading)
     return (
-      <div className="fixed inset-0 bg-white/80 z-50 flex items-center justify-center">
-        <Spinner />
-      </div>
+      // <div className="fixed inset-0 bg-white/80 z-100 flex items-center justify-center">
+      <Spinner />
+      // </div>
     );
 
   if (error) return <p className="text-red-500 text-center">{error.message}</p>;
@@ -71,24 +71,8 @@ function ProductDetails() {
     <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
       <Toaster position="top-center" />
 
-      {/* Breadcrumb */}
-      {/* <nav className="mb-6 text-xs sm:text-sm text-gray-600">
-        <Link to="/" className="hover:underline">
-          Home
-        </Link>{" "}
-        /{" "}
-        <Link to={`/${brand}`} className="hover:underline capitalize">
-          {brand}
-        </Link>{" "}
-        / <span className="text-black font-medium">{product.title}</span>
-      </nav> */}
-
       <Breadcrumb
-        paths={[
-          { label: "Home", to: "/" },
-          // { label: brand, to: `/${brand}` },
-          { label: product.title },
-        ]}
+        paths={[{ label: "Home", to: "/" }, { label: product.title }]}
       />
 
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">

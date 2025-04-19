@@ -5,7 +5,7 @@ const CategoryCard = ({ title, image, onClick, isActive }) => (
     whileHover={{ scale: 1.05 }}
     onClick={onClick}
     className={`bg-gray-100 rounded-xl shadow-md overflow-hidden cursor-pointer transition duration-300 
-      ${isActive ? "border-2 border-blue-500" : "hover:border-gray-300"}`}
+      ${isActive ? "border-1 border-blue-500" : "hover:border-gray-300"}`}
   >
     <img
       src={image}
