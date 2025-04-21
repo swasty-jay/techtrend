@@ -4,7 +4,7 @@ import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
 import { supabase } from "./../../supabase";
 
-const Login = () => {
+function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const {
@@ -118,6 +118,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
