@@ -1,6 +1,4 @@
-import NavBar from "../Components/NavBar";
 import HeroSection from "../UI/HeroSection";
-import Footer from "../Components/Footer";
 import Tabs from "../Components/Tabs";
 
 const Homepage = () => {
