@@ -10,5 +10,3 @@ export const store = configureStore({
 });
 
 export default store;
-
-// import { configureStore } from "@reduxjs/toolkit";
