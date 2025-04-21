@@ -1,4 +1,9 @@
 @import "tailwindcss";
+/* 
+body {
+   background-color: var(--light-gray); 
+  background-color: yellow !important;
+} */
 
 /* COLOR PALLET */
 
@@ -13,6 +18,7 @@
   --muted-green: #a8d5ba;
   --warm-orange: #ffb573;
   --deep-navy: #1e2a3a;
+  --light-gray: #d1d5cd;
 }
 
 /* ///////////////RATING CSS/////// */

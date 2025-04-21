@@ -7,9 +7,11 @@ const NotFound = () => {
     <>
       <Breadcrumb paths={[{ label: "Home", to: "/" }, { label: "404" }]} />
 
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        <h1 className="text-8xl font-sans text-gray-800">404 Page Not Found</h1>
-        <p className="mt-10 text-lg text-gray-600">
+      <div className="flex flex-col items-center justify-center min-h-[50vh] bg-gray-50">
+        <h1 className="text-2xl sm:text-4xl font-sans text-gray-800 px-10">
+          404 Page Not Found
+        </h1>
+        <p className="mt-4 text-[12px] sm:text-[15px] text-gray-600 px-6">
           Your Visited Page Not Found. You May Go Back Home
         </p>
         <Link

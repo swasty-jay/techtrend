@@ -4,6 +4,7 @@ import { FaShoppingCart, FaUser, FaTimes, FaChevronDown } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { motion, AnimatePresence } from "framer-motion";
+import About from "./../Pages/About";
 
 const NavBar = () => {
   const cartItems = useSelector((state) => state.cart.items);

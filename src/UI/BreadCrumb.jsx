@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Breadcrumb = ({ paths = [] }) => {
   return (
-    <nav className="text-xs sm:text-sm text-gray-600 mb-6">
+    <nav className="text-xs sm:text-sm text-gray-600 mb-6 font-semibold">
       {paths.map((path, index) => (
         <span key={index}>
           {index !== 0 && " / "}

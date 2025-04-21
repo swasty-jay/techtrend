@@ -42,12 +42,12 @@ function CheckOut() {
   };
 
   const handleCheckout = () => {
-    toast.success("Proceeding to checkout...");
+    // toast.success("Proceeding to checkout...");
     navigate("/CheckoutForm");
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
+    <div className="min-h-[80vh] bg-gradient-to-br from-gray-200 to-gray-50">
       <section className="max-w-6xl mx-auto px-4 py-16">
         <Toaster position="top-center" />
         <Breadcrumb

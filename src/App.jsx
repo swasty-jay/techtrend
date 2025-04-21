@@ -9,6 +9,9 @@ import AppLayout from "./UI/AppLayout";
 import MotionWrapper from "./UI/MotionWrapper";
 import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
+import Contact from "./Pages/Contact";
+import About from "./Pages/About";
+import Shop from "./Pages/Shop";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +65,30 @@ const router = createBrowserRouter([
         element: (
           <MotionWrapper>
             <SignUp />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "/contact",
+        element: (
+          <MotionWrapper>
+            <Contact />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "/about",
+        element: (
+          <MotionWrapper>
+            <About />
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "/shop",
+        element: (
+          <MotionWrapper>
+            <Shop />
           </MotionWrapper>
         ),
       },

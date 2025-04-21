@@ -50,7 +50,7 @@ const Signup = () => {
       </div>
 
       {/* Right Form Section */}
-      <div className="w-full md:w-1/2 flex items-center justify-center px-8 py-10">
+      <div className="w-full md:w-1/2 flex items-center justify-center px-8 py-10 bg-gray-50 pt-0">
         <div className="w-full max-w-md">
           <h2 className="text-2xl font-bold mb-1">Create Account</h2>
           <p className="text-sm text-gray-600 mb-6">Enter your details below</p>
@@ -60,7 +60,7 @@ const Signup = () => {
               type="email"
               placeholder="Email"
               {...register("email", { required: "Email is required" })}
-              className="w-full border-b outline-none py-2 placeholder-gray-500"
+              className="w-full border-b border-b-gray-300 outline-none py-2 placeholder-gray-500"
             />
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email.message}</p>
@@ -75,14 +75,14 @@ const Signup = () => {
                   required: "Password is required",
                   minLength: { value: 6, message: "Minimum 6 characters" },
                 })}
-                className="w-full border-b outline-none py-2 placeholder-gray-500 pr-10"
+                className="w-full border-b border-b-gray-300 outline-none py-2 placeholder-gray-500 pr-10"
               />
               <button
                 type="button"
                 className="absolute right-0 top-2 text-sm text-blue-500"
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? "🙈" : "🙉"}
+                {showPassword ? "🙉" : "🙈"}
               </button>
             </div>
             {errors.password && (
@@ -99,14 +99,14 @@ const Signup = () => {
                   validate: (val) =>
                     val === watch("password") || "Passwords do not match",
                 })}
-                className="w-full border-b outline-none py-2 placeholder-gray-500 pr-10"
+                className="w-full border-b border-b-gray-300 outline-none py-2 placeholder-gray-500 pr-10"
               />
               <button
                 type="button"
                 className="absolute right-0 top-2 text-sm text-blue-500"
                 onClick={() => setShowConfirm((prev) => !prev)}
               >
-                {showConfirm ? "🙈" : "🙉"}
+                {showConfirm ? "🙉" : "🙈"}
               </button>
             </div>
             {errors.confirmPassword && (
@@ -131,7 +131,7 @@ const Signup = () => {
           {/* Google Sign Up */}
           <button
             onClick={handleGoogleSignUp}
-            className="flex items-center justify-center gap-2 w-full border px-6 py-2 rounded hover:bg-gray-50"
+            className="flex items-center justify-center gap-2 w-full border border-gray-300 px-6 py-2 rounded hover:bg-gray-50"
           >
             <FcGoogle className="text-xl" />
             Sign up with Google
