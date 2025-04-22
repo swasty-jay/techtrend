@@ -1,8 +1,13 @@
 @import "tailwindcss";
 
 body {
-  font-family: "roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
+
+html {
+  font-size: 12px; /* or 14px if you want slightly larger */
+}
+
 /* COLOR PALLET */
 
 :root {

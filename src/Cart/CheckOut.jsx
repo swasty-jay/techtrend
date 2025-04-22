@@ -90,7 +90,7 @@ function CheckOut() {
                     >
                       <td className="flex items-center gap-4 p-4">
                         <button
-                          className="text-red-500 hover:text-red-700 text-lg"
+                          className="text-red-500 hover:text-red-700 text-4xl"
                           onClick={() => handleRemove(item.id)}
                         >
                           &times;
@@ -138,7 +138,7 @@ function CheckOut() {
                   <div className="flex justify-between items-center">
                     <div className="flex items-center gap-2">
                       <button
-                        className="text-red-500 text-lg"
+                        className="text-red-500 text-4xl"
                         onClick={() => handleRemove(item.id)}
                       >
                         &times;
@@ -212,7 +212,7 @@ function CheckOut() {
               </div>
 
               {/* Right side - Total */}
-              <div className="w-full lg:w-1/3 border border-gray-500 rounded-lg p-6 shadow">
+              <div className="w-full lg:w-1/3 border border-gray-500 rounded p-6 shadow">
                 <h3 className="text-lg font-semibold mb-4">Cart Total</h3>
                 <div className="flex justify-between py-2 border-b border-b-gray-400">
                   <span>Subtotal:</span>

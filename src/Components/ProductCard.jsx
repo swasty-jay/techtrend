@@ -26,7 +26,7 @@ function ProductCard({
   return (
     <CardWrapper
       {...(is_active && { whileHover: { scale: 1.01 } })}
-      className={`bg-white rounded-2xl shadow-lg  w-full max-w-xs border border-gray-200 ${
+      className={`bg-white rounded-lg shadow-lg  w-full max-w-[240px] border border-gray-200 ${
         !is_active ? "opacity-55" : ""
       }`}
     >
@@ -43,22 +43,18 @@ function ProductCard({
 
       {/* Product Info */}
       <div className="mt-4 space-y-2 text-center">
-        <h2 className="text-[12px] md:text-[16px] font-serif text-gray-800">
+        <h2 className="text-[10px] md:text-[12px] font-roboto text-gray-800">
           {name}
         </h2>
         {/* Price */}
         <div className="flex items-center justify-center space-x-2">
-          <span className="text-[12px] md:text-[14px] font-bold text-gray-900">
+          <span className="text-[8px] md:text-[11px] font-semibold text-gray-900">
             GHS{price}
           </span>
           <span className=" text-xs text-gray-500 line-through">
             GHS{oldPrice}
           </span>
         </div>
-        {/* Rating
-        <div className="flex items-center justify-center space-x-1">
-          <Rating />
-        </div> */}
 
         {/* Quantity Progress Bar for only active products */}
         {is_active && (
@@ -91,7 +87,7 @@ function ProductCard({
             variant="primary"
             onClick={() => navigate(`/products/${brand}/${id}`)}
           >
-            <span className="text-[9px] font-semibold sm:text-[14px]">
+            <span className="text-[10px] font-semibold sm:text-[12px]">
               view product
             </span>
           </Button>
