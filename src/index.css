@@ -1,10 +1,8 @@
 @import "tailwindcss";
-/* 
-body {
-   background-color: var(--light-gray); 
-  background-color: yellow !important;
-} */
 
+body {
+  font-family: "roboto", sans-serif;
+}
 /* COLOR PALLET */
 
 :root {
@@ -117,3 +115,6 @@ body {
   background-color: #b91c1c; /* Red-700 */
   transform: scale(1.05);
 }
+
+/* GOOGLE FONT HERE */
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap"); */
