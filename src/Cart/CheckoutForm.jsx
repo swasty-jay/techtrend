@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { clearCart } from "../Store/cartSlice";
 import Breadcrumb from "../UI/BreadCrumb";
 import { supabase } from "./../../supabase";
+import toast, { Toaster } from "react-hot-toast";
 
 const CheckoutForm = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -24,11 +25,13 @@ const CheckoutForm = () => {
     0
   );
   const shipping = 0;
-  const total = subtotal + shipping;
+  const delivery = 0;
+
+  const total = subtotal + shipping + delivery;
 
   const onSubmit = async (data) => {
     if (!cartItems.length) {
-      alert("Your cart is empty.");
+      toast.error("Your cart is empty.");
       return;
     }
 
@@ -45,9 +48,9 @@ const CheckoutForm = () => {
 
     if (error) {
       console.error("Error placing order:", error.message);
-      alert("Failed to place order. Please try again.");
+      toast.error("Failed to place order. Please try again.");
     } else {
-      alert("Order Placed Successfully!");
+      toast.success("Order Placed Successfully!");
       dispatch(clearCart());
       reset();
     }
@@ -64,9 +67,12 @@ const CheckoutForm = () => {
       />
 
       <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-12">
+        <Toaster position="top-center" />
         {/* Billing Form */}
         <div>
-          <h2 className="text-2xl font-semibold mb-4">Billing Details</h2>
+          <h2 className="text-xl font-semibold mb-4 uppercase">
+            Billing Details
+          </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <label className="block mb-1 text-sm font-medium">
               Full Name <span className="text-red-500">*</span>
@@ -170,7 +176,7 @@ const CheckoutForm = () => {
 
         {/* Order Summary */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">Your Order</h2>
+          <h2 className="text-xl font-semibold mb-4 uppercase">Your Order</h2>
           <div className="space-y-4 border-b border-b-gray-300 pb-4">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between items-center">
@@ -195,7 +201,11 @@ const CheckoutForm = () => {
           <div className="mt-4 space-y-2 text-sm text-gray-700">
             <div className="flex justify-between">
               <p>Subtotal:</p>
-              <p>${subtotal}</p>
+              <p>GHS: {subtotal}</p>
+            </div>
+            <div className="flex justify-between">
+              <p>Delivery:</p>
+              <p> GHS: {delivery}</p>
             </div>
             <div className="flex justify-between">
               <p>Shipping:</p>
@@ -203,7 +213,7 @@ const CheckoutForm = () => {
             </div>
             <div className="flex justify-between font-semibold text-base">
               <p>Total:</p>
-              <p>${total}</p>
+              <p> GHS: {total}</p>
             </div>
           </div>
 
@@ -248,17 +258,11 @@ const CheckoutForm = () => {
             <button
               type="button"
               className="bg-red-500 text-white px-4 rounded "
+              onClick={() => toast.error("Coupon not available yet")}
             >
               Apply Coupon
             </button>
           </div>
-
-          {/* <button
-            type="submit"
-            className="mt-4 w-40 bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
-          >
-            Place Order
-          </button> */}
         </div>
       </div>
     </>
