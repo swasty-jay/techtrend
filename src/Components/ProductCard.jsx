@@ -1,9 +1,188 @@
-import { motion } from "framer-motion";
-import { FaShoppingCart } from "react-icons/fa";
-import Button from "../UI/Button";
-import ImageSkeleton from "../UI/ImageSkeleton";
-import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+// import PropTypes from "prop-types";
+// import { useNavigate } from "react-router-dom";
+// import { motion } from "framer-motion";
+// import { FaShoppingCart, FaEye } from "react-icons/fa";
+
+// function ProductCard({
+//   id,
+//   title: name,
+//   price,
+//   brand,
+//   oldPrice,
+//   discount,
+//   is_active,
+//   image,
+//   quantity,
+//   maxQuantity = 50,
+//   onAddToCart,
+// }) {
+//   const navigate = useNavigate();
+//   const [isHovered, setIsHovered] = useState(false);
+
+//   // Animation variants
+//   const cardVariants = {
+//     hover: { y: -4, transition: { duration: 0.3 } },
+//     initial: { y: 0, transition: { duration: 0.3 } },
+//   };
+
+//   // Calculate stock percentage
+//   const stockPercentage = Math.min((quantity / maxQuantity) * 100, 100);
+//   let stockColor = "bg-red-500";
+//   if (stockPercentage > 70) stockColor = "bg-green-500";
+//   else if (stockPercentage > 30) stockColor = "bg-amber-500";
+
+//   // Format price with commas
+//   const formatPrice = (num) => {
+//     return num.toLocaleString("en-US", {
+//       minimumFractionDigits: 2,
+//       maximumFractionDigits: 2,
+//     });
+//   };
+
+//   return (
+//     <motion.div
+//       className={`relative w-full max-w-xs sm:max-w-sm rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-white border border-gray-100 ${
+//         !is_active ? "opacity-80 grayscale" : ""
+//       }`}
+//       variants={cardVariants}
+//       initial="initial"
+//       whileHover="hover"
+//       animate={isHovered ? "hover" : "initial"}
+//       onHoverStart={() => setIsHovered(true)}
+//       onHoverEnd={() => setIsHovered(false)}
+//     >
+//       {/* Discount Badge */}
+//       {discount > 0 && (
+//         <div className="absolute top-3 left-3 z-10">
+//           <div className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md">
+//             -{discount}%
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Availability Badge */}
+//       {!is_active && (
+//         <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center z-20">
+//           <div className="bg-black bg-opacity-60 text-white px-4 py-2 rounded-md font-bold text-sm uppercase tracking-wider">
+//             Out of Stock
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Image Container */}
+//       <div
+//         className="relative h-40 sm:h-48 overflow-hidden bg-gray-100 cursor-pointer"
+//         onClick={() => navigate(`/products/${brand}/${id}`)}
+//       >
+//         {image ? (
+//           <img
+//             src={image}
+//             alt={name}
+//             className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+//           />
+//         ) : (
+//           <div className="w-full h-full flex items-center justify-center bg-gray-100">
+//             <span className="text-gray-400">No image</span>
+//           </div>
+//         )}
+//       </div>
+
+//       {/* Content Container */}
+//       <div className="p-3 sm:p-4">
+//         {/* Brand */}
+//         <div className="text-xs text-gray-500 font-medium uppercase mb-1">
+//           {brand}
+//         </div>
+
+//         {/* Product Name */}
+//         <h3 className="font-medium text-gray-800 text-xs sm:text-sm mb-2 line-clamp-2 h-8 sm:h-10">
+//           {name}
+//         </h3>
+
+//         {/* Price */}
+//         <div className="flex items-center mb-3">
+//           <span className="font-bold text-gray-900 text-sm sm:text-base mr-2">
+//             GHS {formatPrice(price)}
+//           </span>
+//           {oldPrice && oldPrice > price && (
+//             <span className="text-xs text-gray-400 line-through">
+//               GHS {formatPrice(oldPrice)}
+//             </span>
+//           )}
+//         </div>
+
+//         {/* Stock Indicator (for all products) */}
+//         <div className="mb-3 sm:mb-4">
+//           <div className="flex justify-between text-xs text-gray-500 mb-1">
+//             <span>Stock</span>
+//             <span className="font-medium">
+//               {is_active ? `${quantity} left` : "0 left"}
+//             </span>
+//           </div>
+//           <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+//             <div
+//               className={`h-full ${
+//                 is_active ? stockColor : "bg-gray-300"
+//               } transition-all duration-300`}
+//               style={{ width: is_active ? `${stockPercentage}%` : "0%" }}
+//             />
+//           </div>
+//         </div>
+
+//         {/* Action Buttons - Always visible */}
+//         <div className="flex gap-1 sm:gap-2">
+//           <button
+//             className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
+//             onClick={() => navigate(`/products/${brand}/${id}`)}
+//             disabled={!is_active}
+//           >
+//             <FaEye className="mr-1" /> View
+//           </button>
+
+//           <button
+//             className={`flex-1 ${
+//               is_active
+//                 ? "bg-blue-600 hover:bg-blue-700 text-white"
+//                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
+//             }
+//               font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors`}
+//             onClick={() =>
+//               is_active &&
+//               onAddToCart &&
+//               onAddToCart({ id, name, price, image, quantity: 1 })
+//             }
+//             disabled={!is_active}
+//           >
+//             <FaShoppingCart className="mr-1" /> Add
+//           </button>
+//         </div>
+//       </div>
+//     </motion.div>
+//   );
+// }
+
+// ProductCard.propTypes = {
+//   id: PropTypes.string.isRequired,
+//   title: PropTypes.string.isRequired,
+//   price: PropTypes.number.isRequired,
+//   brand: PropTypes.string.isRequired,
+//   oldPrice: PropTypes.number,
+//   discount: PropTypes.number.isRequired,
+//   is_active: PropTypes.bool.isRequired,
+//   image: PropTypes.string.isRequired,
+//   quantity: PropTypes.number.isRequired,
+//   maxQuantity: PropTypes.number,
+//   onAddToCart: PropTypes.func.isRequired,
+// };
+
+// export default ProductCard;
+
+import { useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { FaShoppingCart, FaEye } from "react-icons/fa";
 
 function ProductCard({
   id,
@@ -15,93 +194,152 @@ function ProductCard({
   is_active,
   image,
   quantity,
-  maxQuantity = 50, // Default max quantity
-  // onAddToCart,
+  maxQuantity = 50,
+  onAddToCart,
 }) {
-  const CardWrapper = is_active ? motion.div : "div";
-
   const navigate = useNavigate();
-  // console.log("ProductCard props:", { id, name });
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Animation variants
+  const cardVariants = {
+    hover: { y: -4, transition: { duration: 0.3 } },
+    initial: { y: 0, transition: { duration: 0.3 } },
+  };
+
+  // Calculate stock percentage
+  const stockPercentage = Math.min((quantity / maxQuantity) * 100, 100);
+  let stockColor = "bg-red-500";
+  if (stockPercentage > 70) stockColor = "bg-green-500";
+  else if (stockPercentage > 30) stockColor = "bg-amber-500";
+
+  // Format price with commas
+  const formatPrice = (num) => {
+    return num.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+  };
 
   return (
-    <CardWrapper
-      {...(is_active && { whileHover: { scale: 1.01 } })}
-      className={`bg-white rounded-lg shadow-lg  w-full max-w-[240px] border border-gray-200 ${
-        !is_active ? "opacity-55" : ""
+    <motion.div
+      className={`relative w-full max-w-xs sm:max-w-sm rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 bg-white border border-gray-100 ${
+        !is_active ? "opacity-80 grayscale" : ""
       }`}
+      variants={cardVariants}
+      initial="initial"
+      whileHover="hover"
+      animate={isHovered ? "hover" : "initial"}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
     >
-      {/* Product Image + Discount Badge */}
+      {/* Discount Badge */}
+      {discount > 0 && (
+        <div className="absolute top-3 left-3 z-10">
+          <div className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md">
+            -{discount}%
+          </div>
+        </div>
+      )}
+
+      {/* Availability Badge - removed overlay */}
+      {!is_active && (
+        <div className="absolute top-3 right-3 z-10">
+          <div className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-md">
+            Out of Stock
+          </div>
+        </div>
+      )}
+
+      {/* Image Container */}
       <div
-        className="relative cursor-pointer"
+        className="relative h-40 sm:h-48 overflow-hidden bg-gray-100 cursor-pointer"
         onClick={() => navigate(`/products/${brand}/${id}`)}
       >
-        <ImageSkeleton src={image} alt={name} className="w-full h-auto" />
-        <span className="absolute top-1 left-0.5 bg-amber-200 text-amber-500 text-[8px] md:text-[10px] font-bold px-2 py-1 ">
-          -{discount}%
-        </span>
-      </div>
-
-      {/* Product Info */}
-      <div className="mt-4 space-y-2 text-center">
-        <h2 className="text-[10px] md:text-[12px] font-roboto text-gray-800">
-          {name}
-        </h2>
-        {/* Price */}
-        <div className="flex items-center justify-center space-x-2">
-          <span className="text-[8px] md:text-[11px] font-semibold text-gray-900">
-            GHS{price}
-          </span>
-          <span className=" text-xs text-gray-500 line-through">
-            GHS{oldPrice}
-          </span>
-        </div>
-
-        {/* Quantity Progress Bar for only active products */}
-        {is_active && (
-          <div className="w-full px-4">
-            <div className="flex justify-between text-xs text-gray-600 mb-1">
-              <span>Stock</span>
-              <span>{quantity} left</span>
-            </div>
-            <div
-              className="w-full h-2 bg-gray-200 rounded-full overflow-hidden"
-              role="progressbar"
-              aria-valuenow={quantity}
-              aria-valuemin={0}
-              aria-valuemax={maxQuantity}
-            >
-              <div
-                className="h-full bg-amber-500"
-                style={{
-                  width: `${Math.min((quantity / maxQuantity) * 100, 100)}%`,
-                }}
-              />
-            </div>
+        {image ? (
+          <img
+            src={image}
+            alt={name}
+            className="w-full h-full object-cover object-center transition-transform duration-300 hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gray-100">
+            <span className="text-gray-400">No image</span>
           </div>
         )}
+      </div>
 
-        {/* Add to Cart or Out of Stock */}
-        {is_active ? (
-          <Button
-            className="flex items-center space-x-2"
-            variant="primary"
-            onClick={() => navigate(`/products/${brand}/${id}`)}
-          >
-            <span className="text-[10px] font-semibold sm:text-[12px]">
-              view product
+      {/* Content Container */}
+      <div className="p-3 sm:p-4">
+        {/* Brand */}
+        <div className="text-xs text-gray-500 font-medium uppercase mb-1">
+          {brand}
+        </div>
+
+        {/* Product Name */}
+        <h3 className="font-medium text-gray-800 text-xs sm:text-sm mb-2 line-clamp-2 h-8 sm:h-10">
+          {name}
+        </h3>
+
+        {/* Price */}
+        <div className="flex items-center mb-3">
+          <span className="font-bold text-gray-900 text-sm sm:text-base mr-2">
+            GHS {formatPrice(price)}
+          </span>
+          {oldPrice && oldPrice > price && (
+            <span className="text-xs text-gray-400 line-through">
+              GHS {formatPrice(oldPrice)}
             </span>
-          </Button>
+          )}
+        </div>
+
+        {/* Stock Indicator (for all products) */}
+        <div className="mb-3 sm:mb-4">
+          <div className="flex justify-between text-xs text-gray-500 mb-1">
+            <span>Stock</span>
+            <span className="font-medium">
+              {is_active ? `${quantity} left` : "0 left"}
+            </span>
+          </div>
+          <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+            <div
+              className={`h-full ${
+                is_active ? stockColor : "bg-gray-300"
+              } transition-all duration-300`}
+              style={{ width: is_active ? `${stockPercentage}%` : "0%" }}
+            />
+          </div>
+        </div>
+
+        {/* Action Buttons or Out of Stock indicator */}
+        {is_active ? (
+          <div className="flex gap-1 sm:gap-2">
+            <button
+              className="flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
+              onClick={() => navigate(`/products/${brand}/${id}`)}
+            >
+              <FaEye className="mr-1" /> View
+            </button>
+
+            <button
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
+              onClick={() =>
+                onAddToCart &&
+                onAddToCart({ id, name, price, image, quantity: 1 })
+              }
+            >
+              <FaShoppingCart className="mr-1" /> Add
+            </button>
+          </div>
         ) : (
-          <p className="text-red-500 font-semibold text-sm md:text-base">
+          <div className="bg-gray-200 text-gray-500 font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs">
             Out of Stock
-          </p>
+          </div>
         )}
       </div>
-    </CardWrapper>
+    </motion.div>
   );
 }
 
-// Define PropTypes
 ProductCard.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
