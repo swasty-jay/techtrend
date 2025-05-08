@@ -230,7 +230,7 @@ const Shop = () => {
                 : "hidden"
             }
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 border-b-2 border-gray-200 pb-4">
               <h2 className="text-2xl font-semibold">Samsung Products</h2>
               <button
                 onClick={() => setActiveCategory("samsung")}

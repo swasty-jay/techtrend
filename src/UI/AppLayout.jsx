@@ -3,10 +3,13 @@ import React from "react";
 import Footer from "../Components/Footer";
 import NavBar from "../Components/NavBar";
 import { Outlet } from "react-router-dom";
+import ScrollToTop from "../Components/ScrollToTop";
 
 const AppLayout = () => {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
+      {/* Scroll to top */}
+      <ScrollToTop />
       {/* Navbar */}
       <NavBar />
 
