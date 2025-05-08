@@ -28,7 +28,7 @@ function SamsungProducts() {
 
   return (
     <section className="max-w-7xl mx-auto mt-16  pb-20">
-      <h2 className="text-3xl font-bold text-center mb-8">Samsung Products</h2>
+      {/* <h2 className="text-3xl font-bold text-center mb-8">Samsung Products</h2> */}
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {isLoading ? (

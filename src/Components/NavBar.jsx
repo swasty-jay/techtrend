@@ -85,7 +85,7 @@ const NavBar = () => {
         <Link
           to="/"
           className={`text-2xl font-bold transition-colors duration-300 ${
-            scrolled ? "text-indigo-600" : "text-gray-800"
+            scrolled ? "text-gray-800" : "text-gray-800"
           } hover:opacity-80 md:mr-8`}
         >
           TechTrend
