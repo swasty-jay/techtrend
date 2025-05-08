@@ -12,6 +12,8 @@ import SignUp from "./Pages/SignUp";
 import Contact from "./Pages/Contact";
 import About from "./Pages/About";
 import Shop from "./Pages/Shop";
+// import AdminDashboard from "./Features/Auth/Admin/AdminDashboard";
+// import AdminLogin from "./Features/Auth/Admin/AdminLogin";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +94,22 @@ const router = createBrowserRouter([
           </MotionWrapper>
         ),
       },
+      // {
+      //   path: "/Admindashboard",
+      //   element: (
+      //     <MotionWrapper>
+      //       <AdminDashboard />
+      //     </MotionWrapper>
+      //   ),
+      // },
+      // {
+      //   path: "/Adminlogin",
+      //   element: (
+      //     <MotionWrapper>
+      //       <AdminLogin />
+      //     </MotionWrapper>
+      //   ),
+      // },
       {
         path: "*",
         element: (

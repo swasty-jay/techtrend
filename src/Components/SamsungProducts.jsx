@@ -4,6 +4,7 @@ import ProductCard from "./ProductCard";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Store/cartSlice";
 import ProductSkeleton from "../UI/ProductSkeleton";
+import Error from "../UI/Error";
 
 function SamsungProducts() {
   const dispatch = useDispatch();
@@ -20,16 +21,20 @@ function SamsungProducts() {
     queryKey: ["samsungProducts"],
     queryFn: fetchSamsungProducts,
   });
-  // console.log(products);
 
   if (error) {
-    return <p className="text-red-500 text-center"> {error.message}</p>;
+    return (
+      <p className="text-red-500 text-center">
+        {" "}
+        <Error>
+          <h3>Failed to fetch products. please try again</h3>
+        </Error>
+      </p>
+    );
   }
 
   return (
     <section className="max-w-7xl mx-auto mt-16  pb-20">
-      {/* <h2 className="text-3xl font-bold text-center mb-8">Samsung Products</h2> */}
-
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {isLoading ? (
           Array(4)
