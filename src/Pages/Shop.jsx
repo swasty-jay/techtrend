@@ -3,6 +3,7 @@ import SamsungProducts from "./../Components/SamsungProducts";
 import AppleProducts from "./../Components/AppleProducts";
 import PlaystaionProducts from "./../Components/PlaystationProducts";
 import { ShoppingCart, Heart } from "lucide-react";
+// import ProductCard from "../Components/ProductCard";
 
 const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("featured");
@@ -94,35 +95,11 @@ const Shop = () => {
 
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        {/* Hero Banner */}
-        <div className="relative overflow-hidden rounded-2xl mb-10">
-          <div className="bg-gradient-to-r from-indigo-900 to-purple-800 py-10 px-4 md:px-12 flex flex-col md:flex-row items-center justify-between">
-            <div className="text-white md:w-1/2 mb-8 md:mb-0">
-              <h2 className="text-3xl md:text-4xl font-bold mb-3">
-                Summer Tech Sale
-              </h2>
-              <p className="text-purple-100 text-lg mb-6">
-                Up to 40% off on premium devices. Limited time offer.
-              </p>
-              <button className="bg-white text-purple-900 font-medium py-3 px-6 rounded-lg hover:bg-purple-50 transition-colors">
-                Shop Now
-              </button>
-            </div>
-            <div className="md:w-1/2 flex justify-center">
-              <img
-                src="https://res.cloudinary.com/du4q0ipx8/image/upload/v1746727601/C_est_d%C3%A9j%C3%A0_53_minutes_d5onh1.jpg"
-                alt="Featured products"
-                className="rounded-lg py-0"
-              />
-            </div>
-          </div>
-        </div>
-
         {/* Shop by Brand */}
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold">Shop by Brand</h2>
-            <button className="text-sm text-purple-700 font-medium hover:underline">
+            <button className="text-sm text-red-700 font-medium hover:underline">
               View All
             </button>
           </div>
@@ -136,8 +113,13 @@ const Shop = () => {
                   : "border-gray-200 hover:border-purple-200 hover:bg-purple-50"
               }`}
             >
-              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-700">
-                <span className="text-white font-bold">S</span>
+              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg"
+                    alt=""
+                  />
+                </span>
               </div>
               <span className="font-medium">Samsung</span>
             </button>
@@ -150,15 +132,32 @@ const Shop = () => {
                   : "border-gray-200 hover:border-purple-200 hover:bg-purple-50"
               }`}
             >
-              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center bg-gradient-to-br from-gray-700 to-gray-900">
-                <span className="text-white font-bold">A</span>
+              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center">
+                <span className="text-white font-bold">
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                    alt="logo"
+                  />
+                </span>
               </div>
               <span className="font-medium">Apple</span>
             </button>
 
-            <button className="flex flex-col items-center rounded-xl border border-gray-200 p-6 hover:border-purple-200 hover:bg-purple-50 transition-all  ">
-              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-400 to-blue-600">
-                <span className="text-white font-bold">P</span>
+            <button
+              onClick={() => setActiveCategory("playstation")}
+              className={`flex flex-col items-center rounded-xl border p-6 transition-all ${
+                activeCategory === "playstation"
+                  ? "border-purple-300 bg-purple-50"
+                  : "border-gray-200 hover:border-purple-200 hover:bg-purple-50"
+              }`}
+            >
+              <div className="w-16 h-16 mb-4 rounded-full flex items-center justify-center ">
+                <span className="text-white font-bold">
+                  <img
+                    src="https://www.logo.wine/a/logo/PlayStation/PlayStation-Icon-White-Dark-Background-Logo.wine.svg"
+                    alt=""
+                  />
+                </span>
               </div>
               <span className="font-medium">PlayStation</span>
             </button>
@@ -176,7 +175,7 @@ const Shop = () => {
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold">Top Picks For You</h2>
-            <button className="text-sm text-purple-700 font-medium hover:underline">
+            <button className="text-sm text-red-500 font-medium hover:underline">
               View All
             </button>
           </div>
@@ -187,13 +186,18 @@ const Shop = () => {
                 key={product.id}
                 className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group"
               >
+                {/* <ProductCard
+                  image={product.image}
+                  discount={product.tag}
+                  price={product.price}
+                /> */}
                 <div className="relative">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-48 object-cover"
                   />
-                  <span className="absolute top-2 left-2 bg-purple-600 text-white text-xs px-2 py-1 rounded">
+                  <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
                     {product.tag}
                   </span>
                   <button className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
@@ -208,10 +212,10 @@ const Shop = () => {
                   <h3 className="font-medium text-gray-900 mb-1">
                     {product.name}
                   </h3>
-                  <p className="text-purple-700 font-semibold mb-3">
+                  <p className="text-red-700 font-semibold mb-3">
                     {product.price}
                   </p>
-                  <button className="w-full bg-purple-600 hover:bg-purple-700 text-white rounded-lg py-2 text-sm font-medium transition-colors">
+                  <button className="w-full bg-red-500 hover:bg-red-600 text-white rounded-lg py-2 text-sm font-medium transition-colors">
                     Add to Cart
                   </button>
                 </div>
@@ -234,7 +238,7 @@ const Shop = () => {
               <h2 className="text-2xl font-semibold">Samsung Products</h2>
               <button
                 onClick={() => setActiveCategory("samsung")}
-                className="text-sm text-purple-700 font-medium hover:underline"
+                className="text-sm text-red-500 font-medium hover:underline"
               >
                 View All
               </button>
@@ -252,11 +256,11 @@ const Shop = () => {
                 : "hidden"
             }
           >
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-6 border-b-2 border-gray-200 pb-4">
               <h2 className="text-2xl font-semibold">Apple Products</h2>
               <button
                 onClick={() => setActiveCategory("apple")}
-                className="text-sm text-purple-700 font-medium hover:underline"
+                className="text-sm text-red-500 font-medium hover:underline"
               >
                 View All
               </button>
@@ -267,17 +271,17 @@ const Shop = () => {
           </div>
 
           {/* Uncomment when PlayStation component is ready */}
-          <div className="mb-16">
+          {/* <div className="mb-16">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-semibold">PlayStation Products</h2>
-              <button className="text-sm text-purple-700 font-medium hover:underline">
+              <button className="text-sm text-red-500 font-medium hover:underline">
                 View All
               </button>
             </div>
             <div className="bg-gray-50 rounded-xl p-6">
               <PlaystaionProducts />
             </div>
-          </div>
+          </div> */}
         </section>
       </main>
 
@@ -286,7 +290,7 @@ const Shop = () => {
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             {/* Newsletter */}
-            <div className="bg-gradient-to-br from-purple-600 to-indigo-700 rounded-2xl p-8 text-white">
+            <div className="bg-gray-900 rounded-2xl p-8 text-white">
               <h3 className="text-2xl font-bold mb-2">Stay in the Loop</h3>
               <p className="mb-6 text-purple-100">
                 Subscribe to our newsletter for exclusive deals and tech news
@@ -298,8 +302,8 @@ const Shop = () => {
                   placeholder="Your email address"
                   className="flex-grow px-4 py-3 rounded-l-lg text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-white"
                 />
-                <button className="bg-white text-purple-700 font-medium px-6 py-3 rounded-r-lg hover:bg-purple-50 transition-colors">
-                  Subscribe
+                <button className="bg-white text-black font-medium px-6 py-3 rounded-r-lg hover:bg-purple-50 transition-colors">
+                  Subscribe <span className="text-2xl">&rarr;</span>
                 </button>
               </div>
             </div>
@@ -311,7 +315,10 @@ const Shop = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="flex items-start">
                   <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                    <ShoppingCart size={20} className="text-purple-700" />
+                    <ShoppingCart
+                      size={20}
+                      className="text-red-400 hover:text-red-500"
+                    />
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Free Shipping</h4>
@@ -332,7 +339,7 @@ const Shop = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-purple-700"
+                      className="text-red-400 hover:text-red-500"
                     >
                       <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
@@ -354,7 +361,7 @@ const Shop = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-purple-700"
+                      className="text-red-400 hover:text-red-500"
                     >
                       <circle cx="12" cy="12" r="10" />
                       <path d="M12 6v6l4 2" />
@@ -377,7 +384,7 @@ const Shop = () => {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-purple-700"
+                      className="text-red-400 hover:text-red-500"
                     >
                       <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
                     </svg>

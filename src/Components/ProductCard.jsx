@@ -2,7 +2,8 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaEye } from "react-icons/fa";
+import { FaEye, FaShoppingCart } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 function ProductCard({
   id,
@@ -15,7 +16,7 @@ function ProductCard({
   image,
   quantity,
   maxQuantity = 50,
-  // onAddToCart,
+  onAddToCart,
 }) {
   const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
@@ -134,21 +135,23 @@ function ProductCard({
         {is_active ? (
           <div className="flex gap-1 sm:gap-2">
             <button
-              className="flex-1 bg-red-500 hover:bg-red-600 text-white  font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
+              className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700  font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
               onClick={() => navigate(`/products/${brand}/${id}`)}
             >
-              <FaEye className="mr-1" /> View product details
+              <FaEye className="mr-1" /> View
             </button>
 
-            {/* <button
+            <button
               className="flex-1 bg-red-500 hover:bg-red-600 text-white font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
-              onClick={() =>
-                onAddToCart &&
-                onAddToCart({ id, name, price, image, quantity: 1 })
-              }
+              onClick={() => {
+                if (onAddToCart) {
+                  onAddToCart({ id, name, price, image, quantity: 1 });
+                  toast.success(`${name} added to cart`);
+                }
+              }}
             >
-              <FaShoppingCart className="mr-1" /> Add
-            </button> */}
+              <FaShoppingCart className="mr-1" /> Add to Cart
+            </button>
           </div>
         ) : (
           <div className="bg-gray-200 text-gray-500 font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs">

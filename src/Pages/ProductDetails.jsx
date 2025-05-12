@@ -9,7 +9,7 @@ import {
   fetchPlaystationProducts,
 } from "../Services/Api";
 import { FaStar } from "react-icons/fa";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import NotFound from "./../UI/NotFound";
 import { motion } from "framer-motion";
 import Breadcrumb from "../UI/BreadCrumb";
@@ -37,12 +37,7 @@ function ProductDetails() {
     queryFn: fetchProducts,
   });
 
-  if (isLoading)
-    return (
-      // <div className="fixed inset-0 bg-white/80 z-100 flex items-center justify-center">
-      <Spinner />
-      // </div>
-    );
+  if (isLoading) return <Spinner />;
 
   if (error) return <p className="text-red-500 text-center">{error.message}</p>;
 
@@ -60,7 +55,7 @@ function ProductDetails() {
     };
 
     dispatch(addToCart(updatedProduct));
-    toast.success("Added to cart!");
+    toast.success(`${product.title} added to cart!`);
   };
 
   const handleQuantityChange = (delta) => {
@@ -69,8 +64,6 @@ function ProductDetails() {
 
   return (
     <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-      <Toaster position="top-center" />
-
       <Breadcrumb
         paths={[{ label: "Home", to: "/" }, { label: product.title }]}
       />
