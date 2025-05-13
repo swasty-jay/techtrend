@@ -10,6 +10,7 @@ const AppLayout = () => {
     <div className="min-h-screen flex flex-col bg-gray-50">
       {/* Scroll to top */}
       <ScrollToTop />
+
       {/* Navbar */}
       <NavBar />
 

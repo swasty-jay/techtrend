@@ -1,10 +1,14 @@
+// This component handles the checkout process, including form submission,
+//  payment processing, and order summary display.
+
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { clearCart } from "../Store/cartSlice";
 import Breadcrumb from "../UI/BreadCrumb";
 import { supabase } from "./../../supabase";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+import PaymentGateway from "./../Features/Payments/PaymentGateway";
 
 const CheckoutForm = () => {
   const cartItems = useSelector((state) => state.cart.items);
@@ -15,10 +19,13 @@ const CheckoutForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
+    getValues,
   } = useForm();
 
   const [selectedPayment, setSelectedPayment] = useState("cod");
   const [coupon, setCoupon] = useState("");
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -29,32 +36,91 @@ const CheckoutForm = () => {
 
   const total = subtotal + shipping + delivery;
 
+  // Handle successful Paystack payment
+  const handlePaystackSuccess = async (response) => {
+    try {
+      // Get form data
+      const formData = getValues();
+
+      // Create order data with payment information
+      const orderData = {
+        ...formData,
+        payment_method: "paystack",
+        payment_reference: response.reference,
+        payment_status: "paid",
+        coupon,
+        total,
+        items: cartItems,
+        created_at: new Date().toISOString(),
+      };
+
+      // Save order to database
+      const { error } = await supabase.from("orders").insert([orderData]);
+
+      if (error) {
+        toast.error("Failed to save order details. Please contact support.");
+        console.error("Error saving order:", error);
+      } else {
+        toast.success("Payment successful! Order placed.");
+        dispatch(clearCart());
+        reset();
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.");
+      console.error("Payment processing error:", error);
+    }
+  };
+
+  // Handle Paystack payment cancellation
+  const handlePaystackCancel = () => {
+    toast.error("Payment cancelled");
+  };
+
+  // Handle form submission (for non-Paystack payment methods)
   const onSubmit = async (data) => {
     if (!cartItems.length) {
       toast.error("Your cart is empty.");
       return;
     }
 
-    const orderData = {
-      ...data,
-      payment_method: selectedPayment,
-      coupon,
-      total,
-      items: cartItems,
-      created_at: new Date().toISOString(),
-    };
+    // For non-Paystack payment methods, handle normally
+    if (selectedPayment !== "paystack") {
+      const orderData = {
+        ...data,
+        payment_method: selectedPayment,
+        coupon,
+        total,
+        items: cartItems,
+        created_at: new Date().toISOString(),
+        payment_status:
+          selectedPayment === "bank" ? "awaiting_payment" : "cash_on_delivery",
+      };
 
-    const { error } = await supabase.from("orders").insert([orderData]);
+      setIsProcessing(true);
 
-    if (error) {
-      console.error("Error placing order:", error.message);
-      toast.error("Failed to place order. Please try again.");
-    } else {
-      toast.success("Order Placed Successfully!");
-      dispatch(clearCart());
-      reset();
+      try {
+        const { error } = await supabase.from("orders").insert([orderData]);
+
+        if (error) {
+          toast.error("Failed to place order. Please try again.");
+          console.error("Error placing order:", error);
+        } else {
+          toast.success("Order Placed Successfully!");
+          dispatch(clearCart());
+          reset();
+        }
+      } catch (error) {
+        toast.error("An error occurred. Please try again.");
+        console.error("Order processing error:", error);
+      } finally {
+        setIsProcessing(false);
+      }
     }
+    // For Paystack, the button component handles payment
   };
+
+  // Get email value for Paystack
+  const email = watch("email", "");
 
   return (
     <>
@@ -67,7 +133,7 @@ const CheckoutForm = () => {
       />
 
       <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-12">
-        <Toaster position="top-center" />
+        {/* <Toaster position="top-center" /> */}
         {/* Billing Form */}
         <div>
           <h2 className="text-xl font-semibold mb-4 uppercase">
@@ -79,7 +145,7 @@ const CheckoutForm = () => {
             </label>
             <input
               {...register("first_name", {
-                required: true,
+                required: "Full name is required",
                 pattern: {
                   value: /^[A-Za-z\s]+$/,
                   message: "Full Name must contain only letters",
@@ -96,7 +162,7 @@ const CheckoutForm = () => {
             </label>
             <input
               {...register("street", {
-                required: true,
+                required: "Street address is required",
               })}
               className="w-full p-2 rounded border-gray-200 border bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-300"
             />
@@ -109,7 +175,7 @@ const CheckoutForm = () => {
             </label>
             <input
               {...register("phone", {
-                required: true,
+                required: "Phone number is required",
                 pattern: {
                   value: /^[0-9]+$/,
                   message: "Only numeric values are allowed",
@@ -130,7 +196,7 @@ const CheckoutForm = () => {
             </label>
             <input
               {...register("email", {
-                required: true,
+                required: "Email is required",
                 pattern: {
                   value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
                   message: "Enter a valid email address",
@@ -148,7 +214,7 @@ const CheckoutForm = () => {
             </label>
             <input
               {...register("city", {
-                required: true,
+                required: "City is required",
                 pattern: {
                   value: /^[a-zA-Z\s]*$/,
                   message: "City must contain only letters",
@@ -165,12 +231,45 @@ const CheckoutForm = () => {
               Save this information for faster check-out next time
             </label>
 
-            <button
-              type="submit"
-              className="mt-4 w-50 bg-red-500 text-white py-2 rounded hover:bg-red-600 transition"
-            >
-              Place Order
-            </button>
+            {/* Show standard submit button only for non-Paystack payment methods */}
+            {selectedPayment !== "paystack" && (
+              <button
+                type="submit"
+                disabled={isProcessing}
+                className={`mt-4 w-50 bg-red-500 text-white py-2 rounded transition ${
+                  isProcessing
+                    ? "opacity-70 cursor-not-allowed"
+                    : "hover:bg-red-600"
+                }`}
+              >
+                {isProcessing ? "Processing..." : "Place Order"}
+              </button>
+            )}
+
+            {/* Show Paystack button for Paystack payment method */}
+            {selectedPayment === "paystack" && email && (
+              <div className="mt-4">
+                <PaymentGateway
+                  isProcessing={isProcessing}
+                  setIsProcessing={setIsProcessing}
+                  amount={total}
+                  email={email}
+                  metadata={{
+                    custom_fields: [
+                      {
+                        display_name: "Customer Name",
+                        variable_name: "customer_name",
+                        value: watch("first_name", ""),
+                      },
+                    ],
+                  }}
+                  onSuccess={handlePaystackSuccess}
+                  onCancel={handlePaystackCancel}
+                >
+                  Pay GHS {total} Now
+                </PaymentGateway>
+              </div>
+            )}
           </form>
         </div>
 
@@ -193,7 +292,7 @@ const CheckoutForm = () => {
                     </p>
                   </div>
                 </div>
-                <p>{item.price * item.quantity}</p>
+                <p>GHS {item.price * item.quantity}</p>
               </div>
             ))}
           </div>
@@ -201,11 +300,11 @@ const CheckoutForm = () => {
           <div className="mt-4 space-y-2 text-sm text-gray-700">
             <div className="flex justify-between">
               <p>Subtotal:</p>
-              <p>GHS: {subtotal}</p>
+              <p>GHS {subtotal}</p>
             </div>
             <div className="flex justify-between">
               <p>Delivery:</p>
-              <p> GHS: {delivery}</p>
+              <p>GHS {delivery}</p>
             </div>
             <div className="flex justify-between">
               <p>Shipping:</p>
@@ -213,7 +312,7 @@ const CheckoutForm = () => {
             </div>
             <div className="flex justify-between font-semibold text-base">
               <p>Total:</p>
-              <p> GHS: {total}</p>
+              <p>GHS {total}</p>
             </div>
           </div>
 
@@ -225,12 +324,23 @@ const CheckoutForm = () => {
                 <input
                   type="radio"
                   name="payment"
+                  value="paystack"
+                  checked={selectedPayment === "paystack"}
+                  onChange={(e) => setSelectedPayment(e.target.value)}
+                  className="accent-red-500"
+                />
+                Pay with Paystack
+              </label>
+              <label className="flex items-center gap-2">
+                <input
+                  type="radio"
+                  name="payment"
                   value="bank"
                   checked={selectedPayment === "bank"}
                   onChange={(e) => setSelectedPayment(e.target.value)}
                   className="accent-red-500"
                 />
-                Bank
+                Bank Transfer
               </label>
               <label className="flex items-center gap-2">
                 <input
