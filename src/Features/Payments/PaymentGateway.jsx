@@ -44,7 +44,7 @@ const PaymentGateway = ({
       return;
     }
 
-    // Paystack public key - replace with your actual public key
+    // Test Paystack public key
     const publicKey = "pk_test_9b90f7b54daff08e369a006adc73a82cac9e11e4";
 
     // Create a new instance of Paystack
