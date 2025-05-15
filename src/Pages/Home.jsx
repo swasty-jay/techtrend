@@ -1,71 +1,47 @@
-// import HeroSection from "../UI/HeroSection";
-// import Tabs from "../Components/Tabs";
-
-// const Homepage = () => {
-//   return (
-//     <div className="w-full min-h-screen bg-gray-200 text-gray-900 ">
-//       <HeroSection />
-//       <div className="p-1">
-//         <h2 className="text-3xl font-bold text-center mb-8">Browse Products</h2>
-//         <Tabs />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Homepage;
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SamsungProducts from "./../Components/SamsungProducts";
 import AppleProducts from "./../Components/AppleProducts";
 import PlaystaionProducts from "./../Components/PlaystationProducts";
-import { ShoppingCart, Heart } from "lucide-react";
-// import ProductCard from "../Components/ProductCard";
+import WhyChooseUs from "../UI/WhyChooseUs";
 
 const Shop = () => {
   const [activeCategory, setActiveCategory] = useState("featured");
   // const [isSticky, setIsSticky] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Handle scroll for sticky header
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsSticky(window.scrollY > 80);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Simulated top-selling products for featured section
   const featuredProducts = [
     {
       id: 1,
       name: "Samsung Galaxy S24 Ultra",
-      price: "$1,199",
-      image: "/api/placeholder/120/120",
-      tag: "New",
+      price: "GHS 11,199",
+      image:
+        "https://gh.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/49/8297951/1.jpg?9247",
+      tag: "out of stock",
     },
     {
       id: 2,
       name: "iPhone 15 Pro Max",
-      price: "$1,099",
-      image: "/api/placeholder/120/120",
-      tag: "Popular",
+      price: "GHS 6,999",
+      image:
+        "https://gh.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/28/5994572/1.jpg?5847",
+      tag: "out of stock",
     },
     {
       id: 3,
       name: "Samsung Galaxy Watch 6",
-      price: "$349",
-      image: "/api/placeholder/120/120",
-      tag: "Best Seller",
+      price: "GHS 349",
+      image:
+        "https://gh.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/66/1451352/1.jpg?7808",
+      tag: "out of stock",
     },
     {
       id: 4,
       name: "Apple MacBook Air M3",
-      price: "$1,299",
-      image: "/api/placeholder/120/120",
-      tag: "Limited",
+      price: "GHS 9,299",
+      image:
+        "https://gh.jumia.is/unsafe/fit-in/300x300/filters:fill(white)/product/30/5622582/1.jpg?2278",
+      tag: "out of stock",
     },
   ];
 
@@ -111,7 +87,7 @@ const Shop = () => {
       )}
 
       {/* Main content */}
-      <main className="max-w-7xl mx-auto px-4 py-8">
+      <main className="max-w-7xl mx-auto px-1 py-2">
         {/* Shop by Brand */}
         <section className="mb-12">
           <div className="flex items-center justify-between mb-6">
@@ -197,32 +173,21 @@ const Shop = () => {
             </button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
             {featuredProducts.map((product) => (
               <div
                 key={product.id}
                 className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-md transition-shadow group"
               >
-                {/* <ProductCard
-                  image={product.image}
-                  discount={product.tag}
-                  price={product.price}
-                /> */}
                 <div className="relative">
                   <img
                     src={product.image}
                     alt={product.name}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-48 object-contain group-hover:scale-105 transition-transform duration-300"
                   />
                   <span className="absolute top-2 left-2 bg-red-600 text-white text-xs px-2 py-1 rounded">
                     {product.tag}
                   </span>
-                  <button className="absolute top-2 right-2 bg-white rounded-full p-1.5 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Heart
-                      size={16}
-                      className="text-gray-600 hover:text-red-500"
-                    />
-                  </button>
                 </div>
 
                 <div className="p-4">
@@ -232,8 +197,8 @@ const Shop = () => {
                   <p className="text-red-700 font-semibold mb-3">
                     {product.price}
                   </p>
-                  <button className="w-full bg-red-500 hover:bg-red-600 text-white rounded-lg py-2 text-sm font-medium transition-colors">
-                    Add to Cart
+                  <button className="w-full bg-gray-300 hover:gray-red-400 text-gray-600 rounded-lg py-2 text-sm font-medium transition-colors">
+                    out of stock
                   </button>
                 </div>
               </div>
@@ -260,7 +225,7 @@ const Shop = () => {
                 View All
               </button>
             </div>
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 rounded-xl p-2">
               <SamsungProducts />
             </div>
           </div>
@@ -282,142 +247,37 @@ const Shop = () => {
                 View All
               </button>
             </div>
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 rounded-xl p-2">
               <AppleProducts />
             </div>
           </div>
 
           {/* Uncomment when PlayStation component is ready */}
-          {/* <div className="mb-16">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-semibold">PlayStation Products</h2>
-              <button className="text-sm text-red-500 font-medium hover:underline">
+          <div
+            className={
+              activeCategory === "featured" || activeCategory === "playstation"
+                ? "mb-16"
+                : "hidden"
+            }
+          >
+            <div className="flex items-center justify-between mb-6 border-b-2 border-gray-200 pb-4">
+              <h2 className="text-2xl font-semibold">sony Products</h2>
+              <button
+                onClick={() => setActiveCategory("apple")}
+                className="text-sm text-red-500 font-medium hover:underline"
+              >
                 View All
               </button>
             </div>
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-gray-50 rounded-xl p-2">
               <PlaystaionProducts />
             </div>
-          </div> */}
+          </div>
         </section>
       </main>
 
       {/* Newsletter and Benefits */}
-      <section className="bg-gray-50 py-12 border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {/* Newsletter */}
-            <div className="bg-gray-900 rounded-2xl p-8 text-white">
-              <h3 className="text-2xl font-bold mb-2">Stay in the Loop</h3>
-              <p className="mb-6 text-purple-100">
-                Subscribe to our newsletter for exclusive deals and tech news
-              </p>
-
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-grow px-4 py-3 rounded-l-lg text-gray-900 border-0 focus:outline-none focus:ring-2 focus:ring-white"
-                />
-                <button className="bg-white text-black font-medium px-6 py-3 rounded-r-lg hover:bg-purple-50 transition-colors">
-                  Subscribe <span className="text-2xl">&rarr;</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Benefits */}
-            <div className="bg-white rounded-2xl p-8 border border-gray-200">
-              <h3 className="text-2xl font-bold mb-6">Why Shop With Us</h3>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex items-start">
-                  <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                    <ShoppingCart
-                      size={20}
-                      className="text-red-400 hover:text-red-500"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-1">Free Shipping</h4>
-                    <p className="text-sm text-gray-600">
-                      On all orders over $100
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-red-400 hover:text-red-500"
-                    >
-                      <path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-1">Money Back</h4>
-                    <p className="text-sm text-gray-600">30-day guarantee</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-red-400 hover:text-red-500"
-                    >
-                      <circle cx="12" cy="12" r="10" />
-                      <path d="M12 6v6l4 2" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-1">24/7 Support</h4>
-                    <p className="text-sm text-gray-600">Always here to help</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                    <svg
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-red-400 hover:text-red-500"
-                    >
-                      <path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 0C1.46 6.7 1.33 10.28 4 13l8 8 8-8c2.67-2.72 2.54-6.3.42-8.42z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-medium mb-1">Secure Payment</h4>
-                    <p className="text-sm text-gray-600">
-                      100% protected checkout
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WhyChooseUs />
     </div>
   );
 };

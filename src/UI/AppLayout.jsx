@@ -15,7 +15,7 @@ const AppLayout = () => {
       <NavBar />
 
       {/* Main Content */}
-      <main className="flex-1 mt-20 px-1 sm:px-1 max-w-7xl mx-auto w-full">
+      <main className="flex-1 mt-20 px-1 w-full">
         <Outlet />
       </main>
 

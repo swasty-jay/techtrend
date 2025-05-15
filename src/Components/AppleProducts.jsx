@@ -29,7 +29,7 @@ function AppleProducts() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto mt-16  pb-20">
+    <section className="max-w-7xl mx-auto my-1  pb-4">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 md:gap-4">
         {isLoading ? (
           Array(4) // Show 4 skeletons while loading

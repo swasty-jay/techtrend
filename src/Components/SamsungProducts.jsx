@@ -34,35 +34,30 @@ function SamsungProducts() {
   }
 
   return (
-    <section className="max-w-7xl mx-auto mt-16  pb-20">
+    <section className="max-w-7xl mx-auto my-1  pb-4">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
         {isLoading ? (
           Array(4)
             .fill(0)
             .map((_, index) => <ProductSkeleton key={index} />)
         ) : products.length > 0 ? (
-          products.map(
-            (product) => (
-              console.log("Product data:", product),
-              (
-                <ProductCard
-                  key={product.id}
-                  id={product.id}
-                  oldPrice={product.oldPrice}
-                  brand={product.brand}
-                  title={product.title}
-                  discount={product.discount}
-                  rating={product.rating}
-                  is_active={product.is_active}
-                  price={product.price}
-                  image={product.image_url}
-                  quantity={product.quantity}
-                  maxQuantity={20}
-                  onAddToCart={handleAddToCart}
-                />
-              )
-            )
-          )
+          products.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              oldPrice={product.oldPrice}
+              brand={product.brand}
+              title={product.title}
+              discount={product.discount}
+              rating={product.rating}
+              is_active={product.is_active}
+              price={product.price}
+              image={product.image_url}
+              quantity={product.quantity}
+              maxQuantity={20}
+              onAddToCart={handleAddToCart}
+            />
+          ))
         ) : (
           <p className="text-center text-gray-600 col-span-full">
             No products found.
