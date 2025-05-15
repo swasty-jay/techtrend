@@ -49,7 +49,7 @@ const Shop = () => {
     <div className="bg-white min-h-screen">
       {/* Top notification bar */}
       <div className="bg-black text-white text-center py-2 text-sm">
-        Free express shipping on all orders over $100.{" "}
+        Free express shipping on all orders over GHS 1000.{" "}
         <span className="underline font-medium">Learn more</span>
       </div>
 
