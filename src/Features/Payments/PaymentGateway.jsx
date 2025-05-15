@@ -45,7 +45,7 @@ const PaymentGateway = ({
     }
 
     // Test Paystack public key
-    const publicKey = "pk_test_9b90f7b54daff08e369a006adc73a82cac9e11e4";
+    const publicKey = import.meta.env.VITE_PAYSTACK_PUBLIC_KEY;
 
     // Create a new instance of Paystack
     const handler = window.PaystackPop.setup({

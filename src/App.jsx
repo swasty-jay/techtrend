@@ -11,7 +11,7 @@ import Login from "./Pages/Login";
 import SignUp from "./Pages/SignUp";
 import Contact from "./Pages/Contact";
 import About from "./Pages/About";
-import Shop from "./Pages/Shop";
+// import Shop from "./Pages/Shop";
 // import AdminDashboard from "./Features/Auth/Admin/AdminDashboard";
 // import AdminLogin from "./Features/Auth/Admin/AdminLogin";
 
@@ -86,14 +86,14 @@ const router = createBrowserRouter([
           </MotionWrapper>
         ),
       },
-      {
-        path: "/shop",
-        element: (
-          <MotionWrapper>
-            <Shop />
-          </MotionWrapper>
-        ),
-      },
+      // {
+      //   path: "/shop",
+      //   element: (
+      //     <MotionWrapper>
+      //       <Shop />
+      //     </MotionWrapper>
+      //   ),
+      // },
       // {
       //   path: "/Admindashboard",
       //   element: (

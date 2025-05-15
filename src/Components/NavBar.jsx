@@ -114,14 +114,14 @@ const NavBar = () => {
           {/* Desktop Navigation Links */}
           <div className="hidden md:flex space-x-6 mx-auto">
             <Link
-              to="/shop"
+              to="/"
               className={`font-medium transition-colors duration-200 ${
                 scrolled
                   ? "text-gray-700 hover:text-indigo-600"
                   : "text-gray-700 hover:text-gray-900"
               } px-2 py-1 rounded-md hover:bg-gray-100`}
             >
-              Shop
+              Home
             </Link>
 
             <div
@@ -331,13 +331,13 @@ const NavBar = () => {
                   >
                     Home
                   </Link>
-                  <Link
+                  {/* <Link
                     to="/shop"
                     onClick={toggleDrawer}
                     className="py-3 px-4 rounded-md hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200"
                   >
                     Shop
-                  </Link>
+                  </Link> */}
 
                   <details className="group">
                     <summary className="py-3 px-4 rounded-md hover:bg-gray-50 cursor-pointer flex justify-between items-center text-gray-700 font-medium list-none">
