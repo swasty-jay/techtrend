@@ -1,5 +1,5 @@
 // This component handles the checkout process, including form submission,
-//  payment processing, and order summary display.
+// payment processing, and order summary display.
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -11,9 +11,11 @@ import toast from "react-hot-toast";
 import PaymentGateway from "./../Features/Payments/PaymentGateway";
 
 const CheckoutForm = () => {
+  // Redux state and dispatch
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
+  // Form handling with react-hook-form
   const {
     register,
     handleSubmit,
@@ -23,20 +25,24 @@ const CheckoutForm = () => {
     getValues,
   } = useForm();
 
-  const [selectedPayment, setSelectedPayment] = useState("cod");
+  // Component state
+  const [selectedPayment, setSelectedPayment] = useState("paystack");
   const [coupon, setCoupon] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
 
+  // Calculate order totals
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
   const shipping = 0;
   const delivery = 0;
-
   const total = subtotal + shipping + delivery;
 
-  // Handle successful Paystack payment
+  /**
+   * Handle successful Paystack payment
+   * @param {Object} response - Payment response from Paystack
+   */
   const handlePaystackSuccess = async (response) => {
     try {
       // Get form data
@@ -58,11 +64,8 @@ const CheckoutForm = () => {
       const { error } = await supabase.from("orders").insert([orderData]);
 
       if (error) {
-        //this is wrong ,i did it just for testing mode
-        toast.success("Payment successful! Order placed.");
-
-        // toast.error("Failed to save order details. Please contact support.");
         console.error("Error saving order:", error);
+        toast.error("Failed to save order details. Please contact support.");
       } else {
         toast.success("Payment successful! Order placed.");
         dispatch(clearCart());
@@ -74,19 +77,31 @@ const CheckoutForm = () => {
     }
   };
 
-  // Handle Paystack payment cancellation
+  /**
+   * Handle Paystack payment cancellation
+   */
   const handlePaystackCancel = () => {
     toast.error("Payment cancelled");
   };
 
-  // Handle form submission (for non-Paystack payment methods)
+  /**
+   * Handle form submission for all payment methods
+   * @param {Object} data - Form data
+   */
   const onSubmit = async (data) => {
+    // Validate cart has items
     if (!cartItems.length) {
       toast.error("Your cart is empty.");
       return;
     }
 
-    // For non-Paystack payment methods, handle normally
+    // Handle cash on delivery payment method
+    if (selectedPayment === "cod") {
+      toast.error("Payment on delivery is not available yet");
+      return;
+    }
+
+    // Process order for non-Paystack methods (currently none - reserved for future payment methods)
     if (selectedPayment !== "paystack") {
       const orderData = {
         ...data,
@@ -95,8 +110,7 @@ const CheckoutForm = () => {
         total,
         items: cartItems,
         created_at: new Date().toISOString(),
-        payment_status:
-          selectedPayment === "bank" ? "awaiting_payment" : "cash_on_delivery",
+        payment_status: "awaiting_payment",
       };
 
       setIsProcessing(true);
@@ -119,30 +133,42 @@ const CheckoutForm = () => {
         setIsProcessing(false);
       }
     }
-    // For Paystack, the button component handles payment
+    // For Paystack, the PaymentGateway component handles the payment process
   };
 
-  // Get email value for Paystack
+  // Get email value for Paystack component
   const email = watch("email", "");
 
   return (
     <>
+      {/* Breadcrumb navigation
       <Breadcrumb
         paths={[
           { label: "Home", to: "/" },
           { label: "View Cart", to: "/checkout" },
           { label: "CheckOut", to: "/CheckoutForm" },
         ]}
-      />
-
+      /> */}
+      {/* Breadcrumb navigation */}
+      <div className="w-full  py-2 mb-2">
+        <div className="max-w-6xl mx-auto px-6">
+          <Breadcrumb
+            paths={[
+              { label: "Home", to: "/" },
+              { label: "View Cart", to: "/checkout" },
+              { label: "CheckOut", to: "/CheckoutForm" },
+            ]}
+          />
+        </div>
+      </div>
       <div className="max-w-6xl mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* <Toaster position="top-center" /> */}
-        {/* Billing Form */}
+        {/* Billing Details Form */}
         <div>
           <h2 className="text-xl font-semibold mb-4 uppercase">
             Billing Details
           </h2>
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Full Name Field */}
             <label className="block mb-1 text-sm font-medium">
               Full Name <span className="text-red-500">*</span>
             </label>
@@ -154,12 +180,13 @@ const CheckoutForm = () => {
                   message: "Full Name must contain only letters",
                 },
               })}
-              className="w-full p-2 rounded border-gray-200 border bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-300 "
+              className="w-full p-2 rounded border-gray-200 border bg-gray-100 focus:outline-none focus:ring-1 focus:ring-gray-300"
             />
             {errors.first_name && (
               <p className="text-red-500">{errors.first_name.message}</p>
             )}
 
+            {/* Street Address Field */}
             <label className="block mb-1 text-sm font-medium">
               Street Address <span className="text-red-500">*</span>
             </label>
@@ -173,6 +200,7 @@ const CheckoutForm = () => {
               <p className="text-red-500">{errors.street.message}</p>
             )}
 
+            {/* Phone Number Field */}
             <label htmlFor="phone" className="block mb-1 text-sm font-medium">
               Phone Number <span className="text-red-500">*</span>
             </label>
@@ -194,6 +222,7 @@ const CheckoutForm = () => {
               <p className="text-red-500">{errors.phone.message}</p>
             )}
 
+            {/* Email Address Field */}
             <label htmlFor="email" className="block mb-1 text-sm font-medium">
               Email Address <span className="text-red-500">*</span>
             </label>
@@ -212,6 +241,7 @@ const CheckoutForm = () => {
               <p className="text-red-500">{errors.email.message}</p>
             )}
 
+            {/* City/Town Field */}
             <label className="block mb-1 text-sm font-medium">
               City/Town <span className="text-red-500">*</span>
             </label>
@@ -229,8 +259,9 @@ const CheckoutForm = () => {
               <p className="text-red-500">{errors.city.message}</p>
             )}
 
-            <label className="inline-flex items-center border-gray-300 rounded border p-2 ">
-              <input type="checkbox" className="mr-2 accent-red-500 " />
+            {/* Save Information Checkbox */}
+            <label className="inline-flex items-center border-gray-300 rounded border p-2">
+              <input type="checkbox" className="mr-2 accent-red-500" />
               Save this information for faster check-out next time
             </label>
 
@@ -276,9 +307,11 @@ const CheckoutForm = () => {
           </form>
         </div>
 
-        {/* Order Summary */}
+        {/* Order Summary Section */}
         <div>
           <h2 className="text-xl font-semibold mb-4 uppercase">Your Order</h2>
+
+          {/* Cart Items */}
           <div className="space-y-4 border-b border-b-gray-300 pb-4">
             {cartItems.map((item) => (
               <div key={item.id} className="flex justify-between items-center">
@@ -300,6 +333,7 @@ const CheckoutForm = () => {
             ))}
           </div>
 
+          {/* Order Totals */}
           <div className="mt-4 space-y-2 text-sm text-gray-700">
             <div className="flex justify-between">
               <p>Subtotal:</p>
@@ -319,7 +353,7 @@ const CheckoutForm = () => {
             </div>
           </div>
 
-          {/* Payment Options */}
+          {/* Payment Options - Only PayStack and COD */}
           <div className="mt-6">
             <p className="font-semibold mb-2">Payment Method</p>
             <div className="flex flex-col gap-2">
@@ -332,19 +366,9 @@ const CheckoutForm = () => {
                   onChange={(e) => setSelectedPayment(e.target.value)}
                   className="accent-red-500"
                 />
-                Pay with Paystack
+                Pay Now
               </label>
-              <label className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name="payment"
-                  value="bank"
-                  checked={selectedPayment === "bank"}
-                  onChange={(e) => setSelectedPayment(e.target.value)}
-                  className="accent-red-500"
-                />
-                Bank Transfer
-              </label>
+
               <label className="flex items-center gap-2">
                 <input
                   type="radio"
@@ -359,7 +383,7 @@ const CheckoutForm = () => {
             </div>
           </div>
 
-          {/* Coupon */}
+          {/* Coupon Section */}
           <div className="mt-4 flex gap-2">
             <input
               type="text"
@@ -370,7 +394,7 @@ const CheckoutForm = () => {
             />
             <button
               type="button"
-              className="bg-red-500 text-white px-4 rounded "
+              className="bg-red-500 text-white px-4 rounded"
               onClick={() => toast.error("Coupon not available yet")}
             >
               Apply Coupon
