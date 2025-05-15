@@ -24,12 +24,12 @@ function SamsungProducts() {
 
   if (error) {
     return (
-      <p className="text-red-500 text-center">
+      <h3 className="text-red-500 text-center">
         {" "}
         <Error>
-          <h3>Failed to fetch products. please try again</h3>
+          <p>Failed to fetch products. please try again</p>
         </Error>
-      </p>
+      </h3>
     );
   }
 

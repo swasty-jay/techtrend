@@ -154,19 +154,19 @@ const NavBar = () => {
                   >
                     <Link
                       to="/categories/samsung"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
                     >
                       Samsung
                     </Link>
                     <Link
                       to="/categories/apple"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
                     >
                       Apple
                     </Link>
                     <Link
                       to="/categories/accessories"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
                     >
                       Accessories
                     </Link>
@@ -179,7 +179,7 @@ const NavBar = () => {
               to="/about"
               className={`font-medium transition-colors duration-200 ${
                 scrolled
-                  ? "text-gray-700 hover:text-indigo-600"
+                  ? "text-gray-700 hover:text-gray-800"
                   : "text-gray-700 hover:text-gray-900"
               } px-2 py-1 rounded-md hover:bg-gray-100`}
             >
@@ -189,7 +189,7 @@ const NavBar = () => {
               to="/contact"
               className={`font-medium transition-colors duration-200 ${
                 scrolled
-                  ? "text-gray-700 hover:text-indigo-600"
+                  ? "text-gray-700 hover:text-gray-800"
                   : "text-gray-700 hover:text-gray-900"
               } px-2 py-1 rounded-md hover:bg-gray-100`}
             >
@@ -207,7 +207,7 @@ const NavBar = () => {
                 <FaShoppingCart
                   className={`text-xl transition-colors duration-200 ${
                     scrolled
-                      ? "text-gray-700 group-hover:text-indigo-600"
+                      ? "text-gray-700 group-hover:text-gray-800"
                       : "text-gray-800 group-hover:text-gray-900"
                   }`}
                 />
@@ -230,7 +230,7 @@ const NavBar = () => {
                 <FaUser
                   className={`text-xl transition-colors duration-200 ${
                     scrolled
-                      ? "text-gray-700 hover:text-indigo-600"
+                      ? "text-gray-700 hover:text-gray-800"
                       : "text-gray-800 hover:text-gray-900"
                   }`}
                 />
@@ -251,18 +251,18 @@ const NavBar = () => {
                   >
                     <Link
                       to="/profile/account"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+                      className="block px-4 py-2 hover:bg-gray-100 text-gray-700 transition-colors duration-200"
                     >
                       My Account
                     </Link>
                     <Link
                       to="/profile/orders"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-indigo-600 transition-colors duration-200"
+                      className="block px-4 py-2 hover:bg-gray-100 text-gray-700 transition-colors duration-200"
                     >
                       My Orders
                     </Link>
                     <div className="h-px bg-gray-200 my-2"></div>
-                    <button className="w-full text-left px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-red-600 transition-colors duration-200">
+                    <button className="w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700 hover:text-red-600 transition-colors duration-200">
                       Logout
                     </button>
                   </motion.div>
@@ -314,7 +314,7 @@ const NavBar = () => {
                 className="fixed top-0 right-0 h-full w-72 bg-white shadow-lg z-50 mobile-drawer overflow-y-auto"
               >
                 <div className="flex justify-between items-center p-5 border-b border-gray-200">
-                  <h2 className="text-xl font-bold text-indigo-600">Menu</h2>
+                  <h2 className="text-xl font-bold text-gray-800">Techtrend</h2>
                   <button
                     className="p-2 rounded-full hover:bg-gray-100 focus:outline-none"
                     onClick={toggleDrawer}
@@ -327,7 +327,7 @@ const NavBar = () => {
                   <Link
                     to="/"
                     onClick={toggleDrawer}
-                    className="py-3 px-4 rounded-md hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200"
+                    className="py-3 px-4 rounded-md hover:bg-gray-100 text-gray-700 font-medium transition-colors duration-200"
                   >
                     Home
                   </Link>
@@ -340,7 +340,7 @@ const NavBar = () => {
                   </Link> */}
 
                   <details className="group">
-                    <summary className="py-3 px-4 rounded-md hover:bg-gray-50 cursor-pointer flex justify-between items-center text-gray-700 font-medium list-none">
+                    <summary className="py-3 px-4 rounded-md hover:bg-gray-100 cursor-pointer flex justify-between items-center text-gray-700 font-medium list-none">
                       Categories
                       <FaChevronDown className="text-sm transition-transform duration-300 group-open:rotate-180" />
                     </summary>
@@ -348,21 +348,21 @@ const NavBar = () => {
                       <Link
                         to="/categories/samsung"
                         onClick={toggleDrawer}
-                        className="block py-2 px-4 rounded-md hover:bg-gray-50 text-gray-600 transition-colors duration-200"
+                        className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
                         Samsung
                       </Link>
                       <Link
                         to="/categories/apple"
                         onClick={toggleDrawer}
-                        className="block py-2 px-4 rounded-md hover:bg-gray-50 text-gray-600 transition-colors duration-200"
+                        className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
                         Apple
                       </Link>
                       <Link
                         to="/categories/accessories"
                         onClick={toggleDrawer}
-                        className="block py-2 px-4 rounded-md hover:bg-gray-50 text-gray-600 transition-colors duration-200"
+                        className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
                         Accessories
                       </Link>
@@ -372,14 +372,14 @@ const NavBar = () => {
                   <Link
                     to="/about"
                     onClick={toggleDrawer}
-                    className="py-3 px-4 rounded-md hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200"
+                    className="py-3 px-4 rounded-md hover:bg-gray-100 text-gray-700 font-medium transition-colors duration-200"
                   >
                     About
                   </Link>
                   <Link
                     to="/contact"
                     onClick={toggleDrawer}
-                    className="py-3 px-4 rounded-md hover:bg-gray-50 text-gray-700 font-medium transition-colors duration-200"
+                    className="py-3 px-4 rounded-md hover:bg-gray-100 text-gray-700 font-medium transition-colors duration-200"
                   >
                     Contact Us
                   </Link>
@@ -387,7 +387,7 @@ const NavBar = () => {
                   <div className="h-px bg-gray-200 my-3"></div>
 
                   <details className="group">
-                    <summary className="py-3 px-4 rounded-md hover:bg-gray-50 cursor-pointer flex justify-between items-center text-gray-700 font-medium list-none">
+                    <summary className="py-3 px-4 rounded-md hover:bg-gray-100 cursor-pointer flex justify-between items-center text-gray-700 font-medium list-none">
                       Profile
                       <FaChevronDown className="text-sm transition-transform duration-300 group-open:rotate-180" />
                     </summary>
@@ -395,20 +395,20 @@ const NavBar = () => {
                       <Link
                         to="/profile/account"
                         onClick={toggleDrawer}
-                        className="block py-2 px-4 rounded-md hover:bg-gray-50 text-gray-600 transition-colors duration-200"
+                        className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
                         My Account
                       </Link>
                       <Link
                         to="/profile/orders"
                         onClick={toggleDrawer}
-                        className="block py-2 px-4 rounded-md hover:bg-gray-50 text-gray-600 transition-colors duration-200"
+                        className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
                         My Orders
                       </Link>
                       <button
                         onClick={toggleDrawer}
-                        className="w-full text-left py-2 px-4 rounded-md hover:bg-gray-50 text-gray-600 transition-colors duration-200"
+                        className="w-full text-left py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
                         Logout
                       </button>
@@ -420,7 +420,7 @@ const NavBar = () => {
                   <Link
                     to="/signup"
                     onClick={toggleDrawer}
-                    className="px-4 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-md text-center transition-colors duration-200 mt-2"
+                    className="px-4 py-3 bg-red-500 hover:bg-red-500 text-white font-medium rounded-md text-center transition-colors duration-200 mt-2"
                   >
                     Sign Up
                   </Link>
