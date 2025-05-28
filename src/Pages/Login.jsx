@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-hot-toast";
 import { supabase } from "./../../supabase";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,6 +11,8 @@ function Login() {
     password: "",
   });
   const [errors, setErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,9 +63,13 @@ function Login() {
       if (error) {
         toast.error(error.message);
       } else {
-        toast.success("Logged in successfully!");
+        // toast.success("Logged in successfully!");
         // You can add navigation here
-        // navigate("/dashboard");
+        setFormData({ email: "", password: "" }); // Reset form
+        setErrors({}); // Clear errors
+        // Optionally, you can redirect or perform other actions after successful login
+        setTimeout(() => { navigate("/"); }, 4000); // Redirect to dashboard after 1 second
+        // Note: Adjust the path as necessary based on your routing setup
       }
     } catch (error) {
       toast.error("An unexpected error occurred. Please try again.");

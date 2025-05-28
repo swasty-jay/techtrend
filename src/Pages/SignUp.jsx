@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "./../../supabase"; // Adjust the import path as necessary
-import { FcGoogle } from "react-icons/fc";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const navigate = useNavigate();
+  // Initialize form handling with react-hook-form
 
   const {
     register,
@@ -27,17 +29,15 @@ const Signup = () => {
       toast.error(error.message);
     } else {
       toast.success("Account created! Check your email for verification.");
+      
+      // Redirect to login or home page after successful signup
+      setTimeout(() => {
+        navigate("/login"); // Adjust the path as necessary
+      }, 2000);
     }
   };
 
-  const handleGoogleSignUp = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "google",
-    });
-
-    if (error) toast.error(error.message);
-  };
-
+  
   return (
     <div className="min-h-screen flex">
       {/* Left Image Section */}
@@ -122,20 +122,23 @@ const Signup = () => {
               Sign Up
             </button>
           </form>
-
-          {/* Divider */}
-          <div className="my-4 flex items-center justify-center">
-            <span className="text-gray-400 text-sm">or</span>
-          </div>
-
-          {/* Google Sign Up */}
-          <button
-            onClick={handleGoogleSignUp}
-            className="flex items-center justify-center gap-2 w-full border border-gray-300 px-6 py-2 rounded hover:bg-gray-50"
-          >
-            <FcGoogle className="text-xl" />
-            Sign up with Google
-          </button>
+          <p className="text-sm text-gray-600 mt-4">
+            Already have an account?{" "}
+            <a href="/login" className="text-red-500 hover:underline">
+              Log In
+            </a>  
+          </p>
+          <p className="text-sm text-gray-600 mt-2">
+            By signing up, you agree to our{" "}
+            <a href="/terms" className="text-red-500 hover:underline">
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a href="/privacy" className="text-red-500 hover:underline">
+              Privacy Policy
+            </a>
+          </p>
+          
         </div>
       </div>
     </div>
