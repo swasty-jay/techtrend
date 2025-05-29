@@ -251,19 +251,19 @@ const About = () => {
               {
                 name: "Daniel Amekpoagbe Yawson",
                 role: "Founder & Chairman",
-                img: "/DSC_0358.jpg",
+                img: "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/ps//WhatsApp%20Image%202025-05-28%20at%205.46.24%20PM.jpeg",
                 bio: "Tech visionary with over 15 years of experience in the industry.",
               },
               {
                 name: "Emma Watson",
                 role: "Managing Director",
-                img: "/team/emma.png",
+                img: "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/ps//WhatsApp%20Image%202025-05-28%20at%205.46.24%20PM.jpeg",
                 bio: "Former tech executive bringing global expertise to the Ghanaian market.",
               },
               {
                 name: "Will Smith",
                 role: "Product Designer",
-                img: "/team/will.png",
+                img: "https://pavqfszqmpbdicesddag.supabase.co/storage/v1/object/public/ps//WhatsApp%20Image%202025-05-28%20at%205.46.24%20PM.jpeg",
                 bio: "Award-winning designer focused on creating intuitive user experiences.",
               },
             ].map((member, i) => (
@@ -279,7 +279,7 @@ const About = () => {
                       <img
                         src={member.img}
                         alt={member.name}
-                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500 ease-out"
+                        className="w-full h-full object-contain transform group-hover:scale-105 transition-transform duration-500 ease-out"
                         loading="lazy"
                       />
                     </div>
@@ -388,30 +388,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* Call to Action */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7 }}
-          viewport={{ once: true }}
-          className="max-w-5xl mx-auto mt-24 md:mt-32 mb-10 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl shadow-xl overflow-hidden"
-        >
-          <div className="relative px-6 py-10 md:p-12 text-white text-center">
-            <div className="absolute inset-0 bg-black opacity-10 pattern-dots"></div>
-            <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-bold mb-4">
-                Ready to enhance your tech experience?
-              </h3>
-              <p className="text-white/80 max-w-2xl mx-auto mb-8">
-                Join thousands of satisfied customers who have transformed their
-                digital lifestyle with TechTrend's premium accessories
-              </p>
-              <button className="px-8 py-3 bg-white text-red-600 font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:bg-gray-50">
-                Shop Now
-              </button>
-            </div>
-          </div>
-        </motion.div>
+       
       </div>
     </section>
   );

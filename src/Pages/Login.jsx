@@ -68,7 +68,7 @@ function Login() {
         setFormData({ email: "", password: "" }); // Reset form
         setErrors({}); // Clear errors
         // Optionally, you can redirect or perform other actions after successful login
-        setTimeout(() => { navigate("/"); }, 4000); // Redirect to dashboard after 1 second
+        setTimeout(() => { navigate("/"); }, 1000); // Redirect to dashboard after 1 second
         // Note: Adjust the path as necessary based on your routing setup
       }
     } catch (error) {

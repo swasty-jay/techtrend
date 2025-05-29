@@ -49,7 +49,7 @@ const Shop = () => {
     <div className="bg-white min-h-screen">
       {/* Top notification bar */}
       <div className="bg-black text-white text-center py-2 text-sm">
-        Free express shipping on all orders over GHS 1000.{" "}
+        Free express shipping on all orders over GHS 100.{" "}
         <span className="underline font-medium">Learn more</span>
       </div>
 
@@ -89,7 +89,7 @@ const Shop = () => {
       {/* Main content */}
       <main className="max-w-7xl mx-auto px-1 py-2">
         {/* Shop by Brand */}
-        <section className="mb-12">
+        <section className="mb-12 hidden md:block">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold">Shop by Brand</h2>
             <button className="text-sm text-red-700 font-medium hover:underline">
@@ -165,7 +165,7 @@ const Shop = () => {
         </section>
 
         {/* Featured Products */}
-        <section className="mb-12">
+        <section className="mb-12 hidden md:block">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-semibold">Top Picks For You</h2>
             <button className="text-sm text-red-500 font-medium hover:underline">
