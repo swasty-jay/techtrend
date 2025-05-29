@@ -117,7 +117,7 @@ const NavBar = () => {
               to="/"
               className={`font-medium transition-colors duration-200 ${
                 scrolled
-                  ? "text-gray-700 hover:text-indigo-600"
+                  ? "text-gray-700 hover:text-gray-900"
                   : "text-gray-700 hover:text-gray-900"
               } px-2 py-1 rounded-md hover:bg-gray-100`}
             >
@@ -132,7 +132,7 @@ const NavBar = () => {
               <div
                 className={`flex items-center cursor-pointer font-medium transition-colors duration-200 ${
                   scrolled
-                    ? "text-gray-700 hover:text-indigo-600"
+                    ? "text-gray-700 hover:gray-900"
                     : "text-gray-700 hover:text-gray-900"
                 } px-2 py-1 rounded-md hover:bg-gray-100`}
               >
@@ -152,24 +152,24 @@ const NavBar = () => {
                     exit="exit"
                     className="absolute top-10 left-0 bg-white shadow-xl rounded-lg py-2 w-48 z-30 border border-gray-100"
                   >
-                    <Link
-                      to="/categories/samsung"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
-                    >
-                      Samsung
-                    </Link>
-                    <Link
-                      to="/categories/apple"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
-                    >
-                      Apple
-                    </Link>
-                    <Link
-                      to="/categories/accessories"
-                      className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
-                    >
-                      Accessories
-                    </Link>
+                   <Link
+  to="/categories/merchandise"
+  className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
+>
+  Merchandise
+</Link>
+                   <Link
+  to="/categories/electronics"
+  className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
+>
+  Electronics
+</Link>
+                   <Link
+  to="/categories/accessories"
+  className="block px-4 py-2 hover:bg-gray-50 text-gray-700 hover:text-gray-800 transition-colors duration-200"
+>
+  Accessories
+</Link>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -346,18 +346,18 @@ const NavBar = () => {
                     </summary>
                     <div className="pl-4 pr-2">
                       <Link
-                        to="/categories/samsung"
+                        to="/categories/merchandise"
                         onClick={toggleDrawer}
                         className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
-                        Samsung
+                        Merchandise
                       </Link>
                       <Link
-                        to="/categories/apple"
+                        to="/categories/electronics"
                         onClick={toggleDrawer}
                         className="block py-2 px-4 rounded-md hover:bg-gray-100 text-gray-600 transition-colors duration-200"
                       >
-                        Apple
+                        Electronics
                       </Link>
                       <Link
                         to="/categories/accessories"

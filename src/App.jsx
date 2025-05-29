@@ -1,4 +1,3 @@
-import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import NotFound from "./UI/NotFound";
 import CheckoutForm from "./Cart/CheckoutForm";
@@ -12,9 +11,10 @@ import SignUp from "./Pages/SignUp";
 import Contact from "./Pages/Contact";
 import About from "./Pages/About";
 import ProtectedRoute from "./Features/routes/ProtectedRoute";
-// import Shop from "./Pages/Shop";
-// import AdminDashboard from "./Features/Auth/Admin/AdminDashboard";
-// import AdminLogin from "./Features/Auth/Admin/AdminLogin";
+import ElectronicsComingSoon from "./Components/ElectronicsComingSoon";
+import AccessoriesComingSoon from "./Components/AccessoriesComingSoon";
+import MerchandiseComingSoon from "./Components/MerchandiseComingSoon";
+
 
 const router = createBrowserRouter([
   {
@@ -89,30 +89,30 @@ const router = createBrowserRouter([
           </MotionWrapper>
         ),
       },
-      // {
-      //   path: "/shop",
-      //   element: (
-      //     <MotionWrapper>
-      //       <Shop />
-      //     </MotionWrapper>
-      //   ),
-      // },
-      // {
-      //   path: "/Admindashboard",
-      //   element: (
-      //     <MotionWrapper>
-      //       <AdminDashboard />
-      //     </MotionWrapper>
-      //   ),
-      // },
-      // {
-      //   path: "/Adminlogin",
-      //   element: (
-      //     <MotionWrapper>
-      //       <AdminLogin />
-      //     </MotionWrapper>
-      //   ),
-      // },
+      {
+        path: "/categories/merchandise",
+        element: (
+          <MotionWrapper>
+            <MerchandiseComingSoon/>
+          </MotionWrapper>
+        ),
+      },
+      {
+        path: "/categories/electronics",
+        element: (
+          <MotionWrapper>
+            <ElectronicsComingSoon/>
+          </MotionWrapper>
+        ),
+      },
+       {
+        path: "/categories/accessories",
+        element: (
+          <MotionWrapper>
+            <AccessoriesComingSoon />
+          </MotionWrapper>
+        ),
+      },
       {
         path: "*",
         element: (
