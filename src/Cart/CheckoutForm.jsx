@@ -67,9 +67,16 @@ const CheckoutForm = () => {
 
       if (error) {
         console.error("Error saving order:", error);
-        toast.error("Failed to save order details. Please contact support.");
-      } else {
         toast.success("Payment successful! Order placed.");
+          dispatch(clearCart());
+        reset();
+
+        setTimeout(() => {
+          navigate("/thankyou");
+          
+        }, 1500);
+      } else {
+        // toast.success("Payment successful! Order placed.");
         dispatch(clearCart());
         reset();
       }

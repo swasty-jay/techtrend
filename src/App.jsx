@@ -14,6 +14,8 @@ import ProtectedRoute from "./Features/routes/ProtectedRoute";
 import ElectronicsComingSoon from "./Components/ElectronicsComingSoon";
 import AccessoriesComingSoon from "./Components/AccessoriesComingSoon";
 import MerchandiseComingSoon from "./Components/MerchandiseComingSoon";
+import ThankYouPage from "./Pages/ThankYou";
+import Orders from "./Features/Orders";
 
 
 const router = createBrowserRouter([
@@ -65,6 +67,27 @@ const router = createBrowserRouter([
           </MotionWrapper>
         ),
       },
+
+  {
+        path: "/thankyou",
+        element: (
+          <MotionWrapper>
+            <ThankYouPage/>
+          </MotionWrapper>
+        ),
+      },
+
+
+  {
+        path: "/orders",
+        element: (
+          <MotionWrapper>
+            <Orders/>
+          </MotionWrapper>
+        ),
+      },
+
+
       {
         path: "/signup",
         element: (
