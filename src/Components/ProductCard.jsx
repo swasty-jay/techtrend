@@ -142,7 +142,7 @@ function ProductCard({
             </button>
 
             <button
-              className="flex-1 bg-red-500 hover:bg-red-600 text-white font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-xs transition-colors"
+              className="flex-1 bg-red-500 hover:bg-red-600 text-white font-medium py-1.5 sm:py-2 px-2 sm:px-3 rounded-lg flex items-center justify-center text-[8px] md:text-xs transition-colors"
               onClick={() => {
                 if (onAddToCart) {
                   onAddToCart({ id, name, price, image, quantity: 1 });
